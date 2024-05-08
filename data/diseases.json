@@ -1,0 +1,85 @@
+{
+    "diseases": [
+      {
+        "name": "Tuberculose",
+        "vaccine": "BCG",
+        "doses_required": 1,
+        "interval_between_doses": "Dose única",
+        "contraindications": "Imunodeficiência congênita ou adquirida",
+        "disease_info": "Previne as formas graves de tuberculose, principalmente miliar e meníngea."
+      },
+      {
+        "name": "Difteria, Tétano e Coqueluche",
+        "vaccine": "DTP",
+        "doses_required": 3,
+        "interval_between_doses": "1a dose: 2 meses, 2a dose: 4 meses, 3a dose: 6 meses",
+        "contraindications": "Reação anafilática a qualquer componente da vacina",
+        "disease_info": "Previne difteria, tétano e coqueluche."
+      },
+      {
+        "name": "Febre Amarela",
+        "vaccine": "Febre amarela",
+        "doses_required": 1,
+        "interval_between_doses": "Dose única",
+        "contraindications": "Reação anafilática a qualquer componente da vacina",
+        "disease_info": "Previne a febre amarela."
+      },
+      {
+        "name": "Hepatite A",
+        "vaccine": "Hepatite A",
+        "doses_required": 2,
+        "interval_between_doses": "1a dose: ao nascer, 2a dose: 6 meses após a primeira dose",
+        "contraindications": "Reação anafilática a qualquer componente da vacina",
+        "disease_info": "Previne a hepatite A."
+      },
+      {
+        "name": "Hepatite B",
+        "vaccine": "Hepatite B",
+        "doses_required": 3,
+        "interval_between_doses": "1a dose: ao nascer, 2a dose: 1 mês após a primeira dose, 3a dose: 6 meses após a primeira dose",
+        "contraindications": "Reação anafilática a qualquer componente da vacina",
+        "disease_info": "Previne a hepatite B."
+      },
+      {
+        "name": "Sarampo",
+        "vaccine": "Tríplice Viral (SCR)",
+        "doses_required": 2,
+        "interval_between_doses": "1ª dose: 12 meses, 2ª dose: 15 meses",
+        "contraindications": "Reação anafilática a qualquer componente da vacina",
+        "disease_info": "Previne o sarampo, uma doença viral altamente contagiosa."
+        },
+        {
+            "name": "Rubéola",
+            "vaccine": "Tríplice Viral (SCR)",
+            "doses_required": 2,
+            "interval_between_doses": "1ª dose: 12 meses, 2ª dose: 15 meses",
+            "contraindications": "Reação anafilática a qualquer componente da vacina",
+            "disease_info": "Previne a rubéola, que pode causar complicações em gestantes e malformações congênitas."
+        },
+        {
+            "name": "Caxumba",
+            "vaccine": "Tríplice Viral (SCR)",
+            "doses_required": 2,
+            "interval_between_doses": "1ª dose: 12 meses, 2ª dose: 15 meses",
+            "contraindications": "Reação anafilática a qualquer componente da vacina",
+            "disease_info": "Previne a caxumba, uma infecção viral que afeta as glândulas salivares."
+        },
+        {
+            "name": "Varicela (Catapora)",
+            "vaccine": "Varicela",
+            "doses_required": 2,
+            "interval_between_doses": "1ª dose: 15 meses, 2ª dose: 4 anos",
+            "contraindications": "Reação anafilática a qualquer componente da vacina",
+            "disease_info": "Previne a catapora, uma doença viral caracterizada por erupções cutâneas e febre."
+        },
+        {
+            "name": "HPV (Papilomavírus Humano)",
+            "vaccine": "HPV",
+            "doses_required": 2,
+            "interval_between_doses": "1ª dose: 9 a 14 anos, 2ª dose: 6 meses após a primeira dose",
+            "contraindications": "Reação anafilática a qualquer componente da vacina",
+            "disease_info": "Previne infecções por HPV, que podem levar ao câncer de colo do útero e outras complicações."
+        }
+    ]
+  }
+  

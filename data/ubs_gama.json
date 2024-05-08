@@ -1,0 +1,60 @@
+{
+    "ubs": [
+        {
+            "name": "Unidade Básica de Saúde 01 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7669.748926462161!2d-48.09359842229004!3d-16.020049199999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93597ff95502bdd7%3A0xab5ae6ea2050bb94!2sCentro%20de%20Sa%C3%BAde%2001%20de%20Gama!5e0!3m2!1spt-BR!2sbr!4v1714681981687!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 02 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.5567973701986!2d-48.063731124177664!3d-16.036570884638188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935981839333a0e9%3A0x7360d1e2f77e8531!2sUBS%202%20Gama!5e0!3m2!1spt-BR!2sbr!4v1714683682165!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 03 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.1478571798425!2d-48.0553262241782!3d-16.005816784664535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9359807bceb3e507%3A0xb523a3bfe533af58!2sCentro%20de%20Sa%C3%BAde%20-%20Setor%20Leste%2003!5e0!3m2!1spt-BR!2sbr!4v1714683752738!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 04 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15339.0271956861!2d-48.07553442246263!3d-16.026170811432706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93598014f6e1c4db%3A0x9d00d3d58d089372!2sUnidade%20B%C3%A1sica%20de%20Sa%C3%BAde%20(UBS)%204%20Gama!5e0!3m2!1spt-BR!2sbr!4v1714683790444!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 05 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.8094185603513!2d-48.0615251!3d-16.0234335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93598013411b11f9%3A0xec7e63494c4b3e62!2sCentro%20de%20Sa%C3%BAde%205%20de%20Gama!5e0!3m2!1spt-BR!2sbr!4v1714683834810!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 06 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.0425436260725!2d-48.07627962417821!3d-16.011300684659886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9359800ee62a6147%3A0x95c711e21e7b0f05!2sCentro%20de%20Sa%C3%BAde%2006%20de%20Gama!5e0!3m2!1spt-BR!2sbr!4v1714683911593!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 07 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.001519850408!2d-48.070083724178055!3d-16.01343638465802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9359810c9bff94d3%3A0x37fd93e85e78731!2sUBS%207%20de%20Gama!5e0!3m2!1spt-BR!2sbr!4v1714683971327!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 08 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15340.018540578792!2d-48.08575832248368!3d-16.013274211999736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93598009a8d66ccd%3A0xf3d62af06f9b6ea1!2zQ2VudHJvIGRlIFNhw7pkZSBOwro4!5e0!3m2!1spt-BR!2sbr!4v1714684078030!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 09 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d245402.9151795802!2d-48.254596!3d-16.043652!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935bd9a11afcce0d%3A0x5e07ba5f4973aa6b!2sUBS%2009%20-%20Gama!5e0!3m2!1spt-BR!2sbr!4v1714684128156!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 10 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d570.0337116078899!2d-48.068807370361235!3d-16.028374161700444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1714684514131!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 11 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15342.550173545336!2d-48.09061782253743!3d-15.980293713450537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a2b291ba626c5%3A0x16d9f4b3e0d5cc64!2sUBS%2011%20Gama!5e0!3m2!1spt-BR!2sbr!4v1714684243531!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 12 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.086243057915!2d-48.16241862417814!3d-16.009025384661676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935bd7005bbe04d3%3A0xb66ef5c9d9394a9f!2sUBS%2012%20Gama%20(antigo%20posto%20fiscal)!5e0!3m2!1spt-BR!2sbr!4v1714684285477!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 13 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3836.7565903164127!2d-48.06329692417963!3d-15.921817984736473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a2cbdf4cf57b1%3A0xbcaf4b33a5de18f3!2sUBS%2013%20Gama%20Casa%20Grande!5e0!3m2!1spt-BR!2sbr!4v1714684325514!5m2!1spt-BR!2sbr"
+        },
+        {
+            "name": "Unidade Básica de Saúde 14 do Gama",
+            "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7669.748926462161!2d-48.09359842229004!3d-16.020049199999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93597ff95502bdd7%3A0xab5ae6ea2050bb94!2sCentro%20de%20Sa%C3%BAde%2001%20de%20Gama!5e0!3m2!1spt-BR!2sbr!4v1714681981687!5m2!1spt-BR!2sbr"
+        }
+    ]
+}
