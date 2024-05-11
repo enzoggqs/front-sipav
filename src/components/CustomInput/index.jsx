@@ -36,6 +36,7 @@ const CustomInput = ({ icon, label, type, show, handleClick, touched, errors, ..
               {icon}
             </InputLeftElement>
             <Input
+              autoComplete="on"
               {...field}
               {...props}
               type={type === "password" ? (show ? "text" : "password") : type}
