@@ -32,14 +32,6 @@ const useAuth = () => {
       }));
       
       api.defaults.headers.authorization = `Token ${token}`;
-
-      const userLogged = {
-        email: data.userExists.email,
-        name: data.userExists.name,
-        cpf: data.userExists.cpf,
-        telegram: data.userExists.telegram,
-        phoneNumber: data.userExists.phoneNumber,
-      }
       
       setIsAuthenticated(true);
       
@@ -58,25 +50,7 @@ const useAuth = () => {
         isResponsible: true,
       });
 
-      const { token } = data;
-
-      localStorage.setItem('@sipavAccessToken', token);
-      localStorage.setItem('@sipavUser', JSON.stringify({
-        id: data.userExists.id,
-        email: data.userExists.email,
-        name: data.userExists.name,
-        cpf: data.userExists.cpf,
-        telegram: data.userExists.telegram,
-        phoneNumber: data.userExists.phoneNumber,
-        dependents: data.userExists.dependents,
-      }));
-      api.defaults.headers.authorization = `Token ${token}`;
-
-      navigate(PathRoutes.HOME, {
-        replace: true,
-      });
-
-      setIsAuthenticated(true);
+      signIn(data.email, data.password, navigate)
     } catch (error) {
       throw error;
     }
