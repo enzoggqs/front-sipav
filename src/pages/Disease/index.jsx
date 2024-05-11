@@ -48,9 +48,9 @@ const Disease = () => {
     const fetchDisease = async () => {
       try {
         const response = await getDiseaseAndVaccine(diseaseId, userId);
-        setCurrentDisease(response.data.disease);
-        setCurrentVaccine(response.data.vaccine);
-        setCurrentVaccination(response.data.vaccination);
+        setCurrentDisease(response?.data?.disease);
+        setCurrentVaccine(response?.data?.vaccine);
+        setCurrentVaccination(response?.data?.vaccination);
       } catch (error) {
         console.error('Error fetching disease:', error);
       }
@@ -135,9 +135,9 @@ const Disease = () => {
 
   const isVaccineUpToDate = () => {
     // Verificar se o usuário foi vacinado alguma vez
-    if (currentVaccination.length > 0) {
+    if (currentVaccination?.length > 0) {
       // Se a vacina tem apenas uma dose, marcar como "Vacina em dia"
-      if (currentVaccine[0]?.doses_required === currentVaccination.length) {
+      if (currentVaccine[0]?.doses_required === currentVaccination?.length) {
         return true;
       } else {
         // Se a vacina tem múltiplas doses, verificar a última dose tomada
@@ -158,7 +158,7 @@ const Disease = () => {
   };
 
   const getLastVaccinationDate = () => {
-    if (currentVaccination.length > 0) {
+    if (currentVaccination?.length > 0) {
       // Encontrar a data mais recente entre as doses tomadas
       const lastVaccination = currentVaccination.reduce((acc, cur) => {
         const curDate = new Date(cur.date);
@@ -261,7 +261,7 @@ const Disease = () => {
                   Número de doses:
                 </Text>
                 <Text fontSize="md" flex="1">
-                  {currentVaccine.length ? currentVaccine[0]?.doses_required : "indefinido"}
+                  {currentVaccine?.length ? currentVaccine[0]?.doses_required : "indefinido"}
                 </Text>
               </Flex>
               <Flex alignItems="flex-start">
@@ -297,7 +297,7 @@ const Disease = () => {
                     },
                   }}
                 >
-                  {currentVaccine.length ? (
+                  {currentVaccine?.length ? (
                     <>
                       {currentVaccine[0]?.months_between_doses}{" "}
                       {currentVaccine[0]?.months_between_doses > 1 ? "meses" : "mês"}
@@ -640,7 +640,7 @@ const Disease = () => {
         </Flex>
 
       </HStack>
-      {(currentVaccination.length && currentVaccine.length) && (<>
+      {(currentVaccination?.length && currentVaccine?.length) && (<>
         <CustomModal
           isOpen={isOpenAddModal}
           onClose={handleCloseAddModal}
