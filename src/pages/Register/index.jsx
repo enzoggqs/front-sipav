@@ -250,24 +250,14 @@ const Register = () => {
                     alignItems="center"
                     justifyContent="center"
                   >
-                    {/* <Text
-                      fontSize="24px"
-                      color="primary.600"
-                      fontWeight="semibold"
-                      pb=".5rem"
-                      position="relative"
-                      top="-8rem"
-                    >
-                      {username}
-                    </Text> */}
-                    <Text
-                      fontSize="xl"
-                      color="primary.600"
-                      fontWeight="semibold"
-                      pb=".5rem"
-                    >
-                      Gostaria de ser notificado em algum lugar além do e-mail?
-                    </Text>
+                      <Text
+                        fontSize="xl"
+                        color="primary.600"
+                        fontWeight="semibold"
+                        pb=".5rem"
+                      >
+                        Gostaria de ser notificado em algum lugar além do e-mail?
+                      </Text>
                     <Grid w="100%" templateColumns='1fr 6fr'>
                       <Checkbox borderColor="gray" pt="2rem" colorScheme='gray' />
                       <GridItem>
@@ -300,7 +290,29 @@ const Register = () => {
                         />
                       </GridItem>
                     </Grid>
-
+                    <Flex
+                      gap={5}
+                    >
+                    <Button
+                      p="1rem"
+                      mb="2rem"
+                      fontSize="xl"
+                      borderRadius="30px"
+                      borderWidth=".2rem"
+                      marginTop="1rem"
+                      variant="solid"
+                      borderColor="#CA3433"
+                      color={["#CA3433", "#CA3433", "#CA3433", "#CA3433"]}
+                      bg={["transparent", "transparent", "transparent", "transparent"]}
+                      _hover={{
+                        bg: ["secondary.500", "secondary.500", "secondary.500", "#960019"],
+                        color: "#F0F1F3",
+                      }}
+                      transition="background-color 0.3s, color 0.3s"
+                      onClick={() => setStep(1)}
+                    >
+                        Voltar
+                    </Button>
                     <Button
                       type="submit"
                       p="1rem"
@@ -329,6 +341,7 @@ const Register = () => {
                         Confirmar
                       </Tooltip>
                     </Button>
+                    </Flex>
                   </Flex>
                 )
               }
