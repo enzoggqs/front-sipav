@@ -9,6 +9,7 @@ import Dependents from "../pages/Dependents";
 import Disease from "../pages/Disease";
 import Header from "../components/Header";
 import HealthCenter from "../pages/HealthCenter";
+import Info from "../pages/Info";
 
 const RoutesComponent = () => {
   return (
@@ -87,6 +88,21 @@ const RoutesComponent = () => {
               >
                 <Header />
                 <HealthCenter />
+              </Flex>
+            } 
+          />
+          <Route exect path={PathRoutes.INFO} 
+            element={
+              <Flex
+                flexDirection="column"
+                backgroundColor="primary.500"
+                alignItems="center"
+                h={"100%"}
+                w={"100%"}
+                minH={"100vh"}
+              >
+                <Header />
+                <Info />
               </Flex>
             } 
           />
