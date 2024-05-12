@@ -5,7 +5,7 @@ const Info = () => {
   return (
     <Flex width={"80%"} flexDirection={"column"} alignItems={"center"} justifyContent="center" p={4}>
       <Heading fontSize={"3xl"} color={"secondary.400"} fontWeight={"bold"} mb={5}>
-        SIPAV: Sistema de Controle e Lembrete de Vacinas
+        SIPAV: Sistema de Informação para o Acompanhamento Vacinal
       </Heading>
       <Text fontSize={"xl"} color={"secondary.400"} mb={4}>
         O SIPAV, Sistema de Controle e Lembrete de Vacinas, é uma aplicação desenvolvida com o propósito de facilitar o controle e o acompanhamento das vacinas necessárias para a população, além de fornecer lembretes úteis para garantir que as doses sejam tomadas conforme o calendário recomendado.
