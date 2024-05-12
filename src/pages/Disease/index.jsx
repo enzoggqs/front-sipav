@@ -241,7 +241,7 @@ const Disease = () => {
               fontWeight="semibold"
               mb="2rem"
             >
-              {currentVaccine[0]?.length ? currentVaccine[0]?.name : "Doença sem vacina"}
+              {currentVaccine.length ? currentVaccine[0]?.name : "Doença sem vacina"}
             </Text>
             <VStack
               divider={<StackDivider borderColor='gray.200' />}
