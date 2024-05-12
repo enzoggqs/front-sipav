@@ -38,9 +38,6 @@ const Profile = () => {
   if (!user) {
     return <p>Carregando...</p>;
   }
-
-  // const dataObjeto = new Date(user.birthdate);
-  // const dataFormatada = dataObjeto.toISOString().split('T')[0];
   
   const initialValues = {
     id: user.id,
@@ -59,6 +56,7 @@ const Profile = () => {
   });
 
   async function updateHandle (values) {
+    values.phoneNumber = String(values.phoneNumber)
     await update(values);
     navigate(0); 
   };
