@@ -481,7 +481,7 @@ const Disease = () => {
                     label="Não existe vacina para esta doença"
                     placement="top"
                     hasArrow
-                    isOpen={currentVaccination?.length > 0 ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
+                    isOpen={currentVaccine?.length > 0 ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
                   >
                     Atualizar vacina
                   </Tooltip>
@@ -640,7 +640,7 @@ const Disease = () => {
         </Flex>
 
       </HStack>
-      {(currentVaccination?.length && currentVaccine?.length) && (<>
+      {currentVaccine?.length && (<>
         <CustomModal
           isOpen={isOpenAddModal}
           onClose={handleCloseAddModal}
