@@ -19,22 +19,23 @@ const MenuLinks = ({ isOpen }) => {
         >
           {isAuthenticated && (
             <>
+              <MenuItem to="/">Home</MenuItem>
               <MenuItem to="/account">Perfil</MenuItem>
               <MenuItem to="/dependents">Dependentes</MenuItem>
             </>
           )}
           <MenuItem to="/health-centers">Mapa de Postos de Saúde </MenuItem>
-          <MenuItem to="/">Informações </MenuItem>
+          <MenuItem to="/info">Informações </MenuItem>
           {isAuthenticated ? (
             <>
               <Button
                 onClick={() => signOut()}
                 size="sm"
                 rounded="md"
-                color={["secondary.600", "secondary.600", "white", "white"]}
-                bg={["white", "white", "#CA3433", "#CA3433"]}
+                color={["secondary.300", "secondary.300", "white", "white"]}
+                bg={["#CA3433", "#CA3433", "#CA3433", "#CA3433"]}
                 _hover={{
-                  bg: ["secondary.500", "secondary.500", "secondary.500", "#960019"]
+                  bg: ["#960019", "#960019", "#960019", "#960019"]
                 }}
               >
                 Sair

@@ -10,7 +10,7 @@ import useAuth from '../../services/useAuth.jsx';
 
 const Login = () => {
   const navigate = useNavigate();
-  
+
   const { isAuthenticated, signIn } = useAuth();
   const isAuth = isAuthenticated;
 
@@ -57,26 +57,26 @@ const Login = () => {
             <Flex
               as={Form}
               backgroundColor="#F0F1F3"
-              width="35%"
+              width={["90%", "80%", "70%", "40%"]}
               pt={"2rem"}
               borderRadius="30px"
               flexDirection="column"
               alignItems="center"
               boxShadow="dark-lg"
-              px="5rem"
+              px={["3rem", "4rem", "5rem", "5rem"]}
             >
               <Text
-                fontSize="3xl"
+                fontSize={["2xl", "3xl", "3xl", "3xl"]}
                 color="primary.600"
                 fontWeight="semibold"
-                pb=".5rem"
+                pb={[".2rem", ".3rem", ".5rem", ".5rem"]}
               >
                 SIPAV
               </Text>
               <Divider
                 borderColor="primary.600"
                 backgroundColor="primary.600"
-                borderWidth=".2rem"
+                borderWidth={[".1rem", ".2rem", ".2rem", ".2rem"]}
                 w={"15%"}
               />
               <Flex
@@ -85,14 +85,14 @@ const Login = () => {
                 flexDirection="column"
                 alignItems="flex-start"
                 justifyContent="flex-start"
-                pt="3rem"
+                mt={["2rem", "2rem", "3rem", "3rem"]}
               >
                 <CustomInput
                   label="E-mail"
                   icon={<EmailIcon color='gray.500' />}
                   name="email"
                   type="email"
-                  placeholder="Digite email para login"
+                  placeholder="Digite seu e-mail"
                   height={'54px'}
                   borderWidth=".2rem"
                   borderRadius="30px"
@@ -115,23 +115,16 @@ const Login = () => {
                   errors={errors}
                 />
               </Flex>
-              {/* <Flex justifyContent="flex-end" marginBottom="2rem" width="70%">
-                <Button variant="link">
-                  <Text fontSize="sm" as='u' fontWeight="bold" color="primary.600">
-                    Esqueceu a senha?
-                  </Text>
-                </Button>
-              </Flex> */}
               <Button
                 type="submit"
+                isDisabled={!isValid || !dirty}
+                marginTop="1rem"
                 p="1rem"
+                variant="solid"
                 borderRadius="30px"
                 borderColor="primary.600"
                 borderWidth=".2rem"
-                isDisabled={!isValid || !dirty}
                 color="primary.600"
-                variant="solid"
-                marginTop="1rem"
                 backgroundColor="transparent" // Defina a cor de fundo desejada
                 transition="background-color 0.3s, color 0.3s" // Adicione uma transição suave
                 _hover={(isValid && dirty) && {
@@ -139,7 +132,7 @@ const Login = () => {
                   color: "#F0F1F3",
                 }}
                 mb="2rem"
-                fontSize="xl"
+                fontSize={["md", "xl", "xl", "xl"]}
               >
                 Login
               </Button>

@@ -24,9 +24,9 @@ const CustomInput = ({ icon, label, type, show, handleClick, touched, errors, ..
           pb="4"
         >
           <FormLabel
-            fontSize="md"
+            fontSize={["sm", "md", "md", "md"]}
             color="primary.600"
-            mt=".5rem"
+            mt={[".1rem", ".4rem", ".5rem", ".5rem"]}
             fontWeight="medium"
           >
             {label}
@@ -42,10 +42,11 @@ const CustomInput = ({ icon, label, type, show, handleClick, touched, errors, ..
               type={type === "password" ? (show ? "text" : "password") : type}
               max={type === 'date' ? today : undefined} // Handle non-date types gracefully
               height="2.5rem"
-              value={field.value || ""} // Definir um valor padrão
+              fontSize={["sm", "md", "md", "md"]}
+              value={field.value || ""}
             />
             {type === "password" && (
-              <InputRightElement h="full" width="4.5rem">
+              <InputRightElement h="full" width={["4.5rem", "4.5rem", "4.5rem", "4.5rem"]}>
                 <Button h="1.75rem" size="sm" onClick={handleClick}>
                   {show ? <ViewOffIcon /> : <ViewIcon />}
                 </Button>

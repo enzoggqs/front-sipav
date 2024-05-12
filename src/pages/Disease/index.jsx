@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Form, Formik } from 'formik'
 import { CalendarIcon } from '@chakra-ui/icons'
-import { Box, Spinner, Button, Divider, Flex, HStack, ListItem, ModalBody, Select, StackDivider, Text, Tooltip, UnorderedList, VStack } from '@chakra-ui/react';
+import { Box, Spinner, Button, Divider, Flex, Stack, ListItem, ModalBody, Select, StackDivider, Text, Tooltip, UnorderedList, VStack } from '@chakra-ui/react';
 import DiseaseAPI from '../../services/DiseaseApi';
 import VaccinationAPI from '../../services/VaccinationAPI';
 import CustomModal from '../../components/CustomModal';
@@ -194,34 +194,35 @@ const Disease = () => {
       alignItems="center"
     >
       <Text
-        fontSize="3xl"
+        fontSize={["2xl", "2xl", "3xl", "3xl"]}
         color="secondary.400"
         fontWeight="semibold"
       >
         {currentDisease?.name}
       </Text>
       <Select
-        fontSize="md"
+        fontSize={["xs", "sm", "md", "md"]}
         color="primary.600"
         fontWeight="semibold"
-        width="20%"
+        width={["50%", "20%", "20%", "20%"]}
         borderColor="primary.600"
         my="2rem"
         onChange={handleUserChange}
         value={selectedUserId || ''}
         bg="#F0F1F3"
       >
-        <option value={user?.id}>{user.name}</option>
+        <option fontSize={["xs", "sm", "md", "md"]} value={user?.id}>{user.name}</option>
         {user?.dependents?.map((dependent, index) => (
           <option key={index} value={dependent?.id}>{dependent?.name}</option>
         ))}
       </Select>
-      <HStack
+      <Stack
         justifyContent="center"
         width="100%"
         px="10%"
         gap="6rem"
         alignItems="flex-start"
+        direction={['column', 'row']}
       >
         <Flex width="100%" justifyContent="center">
           <Flex
@@ -236,7 +237,7 @@ const Disease = () => {
             width="100%"
           >
             <Text
-              fontSize="xl"
+              fontSize={["md", "md", "xl", "xl"]}
               color="secondary.400"
               fontWeight="semibold"
               mb="2rem"
@@ -251,35 +252,35 @@ const Disease = () => {
             >
               <Flex alignItems="flex-start">
                 <Text
-                  fontSize="md"
+                  fontSize={["xs", "sm", "md", "md"]}
+                  mr={[".5rem", ".5rem", "1rem", "1rem"]}
                   color="secondary.500"
                   fontWeight="semibold"
-                  mr="1rem"
                   textAlign="left" // Alinhe o rótulo fixo à direita
                   width="150px"
                 >
                   Número de doses:
                 </Text>
-                <Text fontSize="md" flex="1">
+                <Text fontSize={["xs", "sm", "md", "md"]} flex="1">
                   {currentVaccine?.length ? currentVaccine[0]?.doses_required : "indefinido"}
                 </Text>
               </Flex>
               <Flex alignItems="flex-start">
                 <Text
-                  fontSize="md"
+                  fontSize={["xs", "sm", "md", "md"]}
+                  mr={[".5rem", ".5rem", "1rem", "1rem"]}
                   color="secondary.500"
                   fontWeight="semibold"
-                  mr="1rem"
                   textAlign="left" // Alinhe o rótulo fixo à direita
                   width="150px"
                 >
                   Intervalo entre doses:
                 </Text>
                 <Text
-                  fontSize="md"
+                  fontSize={["xs", "sm", "md", "md"]}
                   flex="1"
                   overflowX="auto"
-                  maxH="100px"
+                  maxH={"100px"}
                   sx={{
                     "&::-webkit-scrollbar": {
                       marginLeft: "1rem",
@@ -307,29 +308,29 @@ const Disease = () => {
                   )}
                 </Text>
               </Flex>
-              <Flex alignItems="flex-start">
+              <Flex alignItems="flex-start" flexDir={["column", "column", "row", "row"]}>
                 <Text
-                  fontSize="md"
+                  fontSize={["xs", "sm", "md", "md"]}
                   color="secondary.500"
                   fontWeight="semibold"
-                  mr="1rem"
+                  mr={["0", "0", "1rem", "1rem"]}
+                  pb={[".5rem", ".5rem", "0", "0"]}
                   textAlign="left"
                   width="150px"
                 >
                   Contra indicações:
                 </Text>
                 {currentVaccine?.length ? (
-                  <Box flex="1">
+                  <Box flex="1" >
                     <UnorderedList>
                       {currentVaccine[0]?.contraindications.map((contraindication, index) => (
                         <ListItem
                           key={index}
                         >
                           <Text
-                            fontSize="md"
+                            fontSize={["xs", "sm", "md", "md"]}
                             flex="1"
                             overflowY="auto"
-                            // maxH="150px"
                             key={index}
                             sx={{
                               alignSelf: 'start', // Adicione esta linha para alinhar os textos ao início do contêiner
@@ -384,7 +385,7 @@ const Disease = () => {
             </VStack>
             <Divider my="1.5rem" />
             <Text
-              fontSize="xl"
+              fontSize={["md", "md", "xl", "xl"]}
               color="secondary.400"
               fontWeight="semibold"
               mb="2rem"
@@ -399,40 +400,40 @@ const Disease = () => {
             >
               <Flex alignItems="flex-start">
                 <Text
-                  fontSize="md"
+                  fontSize={["xs", "sm", "md", "md"]}
+                  mr={[".5rem", ".5rem", "1rem", "1rem"]}
                   color="secondary.500"
                   fontWeight="semibold"
-                  mr="1rem"
                   textAlign="left"
                   width="150px"
                 >
                   Vacina em dia:
                 </Text>
-                <Text fontSize="md" flex="1">
+                <Text fontSize={["xs", "sm", "md", "md"]} flex="1" >
                   {isVaccineUpToDate() ? 'Sim' : 'Não'}
                 </Text>
               </Flex>
               <Flex alignItems="flex-start">
                 <Text
-                  fontSize="md"
+                  fontSize={["xs", "sm", "md", "md"]}
                   color="secondary.500"
                   fontWeight="semibold"
-                  mr="1rem"
-                  textAlign="left" // Alinhe o rótulo fixo à direita
+                  mr={[".5rem", ".5rem", "1rem", "1rem"]}
+                  textAlign="left"
                   width="150px"
                 >
                   Última dose tomada:
                 </Text>
-                <Text fontSize="md" flex="1">
+                <Text fontSize={["xs", "sm", "md", "md"]} flex="1">
                   {getLastVaccinationDate()}
                 </Text>
               </Flex>
-              <Flex alignItems="center" width="100%" justifyContent="space-around" gap="1rem">
+              <Flex flexDir={["column", "column", "row", "row"]} alignItems="center" width="100%" justifyContent="space-around" gap="1rem">
                 <Button
                   type="submit"
                   p="1rem"
-                  mb="2rem"
-                  fontSize="xl"
+                  mb={["0", "0", "2rem", "2rem"]}
+                  fontSize={["md", "xl", "xl", "xl"]}
                   borderRadius="30px"
                   borderWidth=".2rem"
                   marginTop="1rem"
@@ -460,8 +461,8 @@ const Disease = () => {
                 <Button
                   type="submit"
                   p="1rem"
-                  mb="2rem"
-                  fontSize="xl"
+                  mb={["0", "0", "2rem", "2rem"]}
+                  fontSize={["md", "xl", "xl", "xl"]}
                   borderRadius="30px"
                   borderWidth=".2rem"
                   marginTop="1rem"
@@ -502,10 +503,11 @@ const Disease = () => {
             justifyContent="center"
             boxShadow="dark-lg"
             px="3rem"
+            mb="3rem"
             width="100%"
           >
             <Text
-              fontSize="xl"
+              fontSize={["md", "md", "xl", "xl"]}
               color="secondary.400"
               fontWeight="semibold"
               mb="2rem"
@@ -518,19 +520,20 @@ const Disease = () => {
               align='stretch'
               width="100%"
             >
-              <Flex alignItems="flex-start">
+              <Flex flexDir={["column", "column", "row", "row"]} alignItems="flex-start">
                 <Text
-                  fontSize="md"
+                  fontSize={["xs", "sm", "md", "md"]}
+                  mr={["0", "0", "1rem", "1rem"]}
+                  pb={[".5rem", ".5rem", "0", "0"]}
                   color="secondary.500"
                   fontWeight="semibold"
-                  mr="1rem"
-                  textAlign="left" // Alinhe o rótulo fixo à direita
+                  textAlign="left"
                   width="150px"
                 >
                   Informações:
                 </Text>
                 <Text
-                  fontSize="md"
+                  fontSize={["xs", "sm", "md", "md"]}
                   flex="1"
                   maxH="150px"
                   overflowY="auto"
@@ -554,12 +557,13 @@ const Disease = () => {
                   {currentDisease?.disease_info}
                 </Text>
               </Flex>
-              <Flex alignItems="flex-start">
+              <Flex flexDir={["column", "column", "row", "row"]} alignItems="flex-start">
                 <Text
-                  fontSize="md"
+                  fontSize={["xs", "sm", "md", "md"]}
+                  mr={["0", "0", "1rem", "1rem"]}
+                  pb={[".5rem", ".5rem", "0", "0"]}
                   color="secondary.500"
                   fontWeight="semibold"
-                  mr="1rem"
                   textAlign="left" // Alinhe o rótulo fixo à direita
                   width="150px"
                 >
@@ -572,7 +576,7 @@ const Disease = () => {
                         key={index}
                       >
                         <Text
-                          fontSize="md"
+                          fontSize={["xs", "sm", "md", "md"]}
                           flex="1"
                           overflowY="auto"
                           // maxH="150px"
@@ -602,16 +606,23 @@ const Disease = () => {
                   </UnorderedList>
                 </Box>
               </Flex>
-              <Flex alignItems="flex-start">
+              <Flex flexDir={["column", "column", "row", "row"]} alignItems="flex-start">
                 <Text
-                  fontSize="md"
+                  fontSize={["xs", "sm", "md", "md"]}
+                  mr={["0", "0", "1rem", "1rem"]}
+                  pb={[".5rem", ".5rem", "0", "0"]}
                   color="secondary.500"
                   fontWeight="semibold"
-                  mr="1rem"
-                  textAlign="left" // Alinhe o rótulo fixo à direita
+                  textAlign="left"
                   width="150px"
-                  overflowY="auto"
+                >
+                  Tratamento:
+                </Text>
+                <Text
+                  fontSize={["xs", "sm", "md", "md"]}
+                  flex="1"
                   maxH="150px"
+                  overflowY="auto"
                   sx={{
                     "&::-webkit-scrollbar": {
                       marginLeft: "1rem",
@@ -629,9 +640,6 @@ const Disease = () => {
                     },
                   }}
                 >
-                  Tratamento:
-                </Text>
-                <Text fontSize="md" flex="1">
                   {currentDisease?.treatment}
                 </Text>
               </Flex>
@@ -639,7 +647,7 @@ const Disease = () => {
           </Flex>
         </Flex>
 
-      </HStack>
+      </Stack>
       {currentVaccine?.length && (<>
         <CustomModal
           isOpen={isOpenAddModal}
@@ -654,7 +662,7 @@ const Disease = () => {
               alignItems="center"
             >
               <Text
-                fontSize="2xl"
+                fontSize={["xl", "md", "xl", "2xl"]}
                 fontWeight="black"
                 pb=".5rem"
                 pt="2rem"
@@ -727,7 +735,7 @@ const Disease = () => {
                         <Button
                           type="submit"
                           h="3rem"
-                          w="100%"
+                          w={["80%", "100%", "100%", "100%"]}
                           borderRadius="30px"
                           borderColor="primary.600"
                           borderWidth=".2rem"
@@ -741,10 +749,10 @@ const Disease = () => {
                             backgroundColor: "primary.600",
                             color: "#F0F1F3",
                           }}
-                          mb="1rem"
-                          fontSize="xl"
+                          mb={["0", "0", "2rem", "2rem"]}
+                          fontSize={["md", "xl", "xl", "xl"]}
                         >
-                          Adicionar vacina a {currentUser?.name}
+                          Adicionar vacina a {currentUser && currentUser.name ? currentUser.name.split(" ")[0] : ""}
                         </Button>
                       </Flex>
                     )
@@ -763,13 +771,13 @@ const Disease = () => {
         >
           <ModalBody>
             <Flex
-              width="100%"
+              width="90%"
               flexDirection="column"
               alignItems="center"
               px="1rem"
             >
               <Text
-                fontSize="2xl"
+                fontSize={["md", "xl", "xl", "2xl"]}
                 fontWeight="black"
                 pb=".5rem"
                 pt="2rem"
@@ -787,7 +795,7 @@ const Disease = () => {
                 {currentVaccination?.map((vaccination, index) => (
                   <Flex key={index} alignItems="center" justifyContent="flex-start">
                     <Text
-                      fontSize="md"
+                      fontSize={["sm", "md", "xl", "xl"]}
                       fontWeight="medium"
                       color="secondary.500"
                     >

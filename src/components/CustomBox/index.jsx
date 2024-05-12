@@ -16,7 +16,7 @@ const CustomBox = ({text, firstImage, secondImage, ...props}) => {
       {...props}
     >
       <Text 
-          fontSize="md" 
+          fontSize={["xs", "sm", "md", "md"]}
           fontWeight="semibold" 
           color="primary.600"
           px="10px"

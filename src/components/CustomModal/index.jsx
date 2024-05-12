@@ -10,7 +10,7 @@ import {
     ModalCloseButton,
 } from '@chakra-ui/react';
 
-const CustomModal = ({ isOpen, onClose, initialRef, finalRef, children }) => {
+const CustomModal = ({ isOpen, onClose, initialRef, finalRef, maxW, children }) => {
     return (
         <Modal
             isOpen={isOpen}
@@ -20,6 +20,7 @@ const CustomModal = ({ isOpen, onClose, initialRef, finalRef, children }) => {
         >
             <ModalOverlay />
             <ModalContent>
+                <ModalCloseButton />
                 {children}
             </ModalContent>
         </Modal>

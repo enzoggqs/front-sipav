@@ -1,4 +1,4 @@
-import { Button, Flex, Text, Tooltip } from '@chakra-ui/react'
+import { Button, Flex, Text, Tooltip, VStack } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import React, { useEffect, useRef, useState } from 'react'
 import { BiNews, BiSolidEdit, BiSolidTrash, BiUserCircle } from 'react-icons/bi'
@@ -141,7 +141,7 @@ const Dependents = () => {
   return (
     <Flex
       backgroundColor="#F0F1F3"
-      width="36%"
+      width={["90%", "80%", "70%", "40%"]}
       pt={"2rem"}
       borderRadius="30px"
       flexDirection="column"
@@ -153,7 +153,7 @@ const Dependents = () => {
         w="80%"
       >
         <Text
-          fontSize="xl"
+          fontSize={["md", "md", "xl", "xl"]}
           color="primary.600"
           fontWeight="semibold"
           pb=".5rem"
@@ -197,7 +197,7 @@ const Dependents = () => {
             text={dependent.name}
             firstImage={
               <BiSolidEdit
-                size={30}
+                size={25}
                 color='#088395'
                 cursor={"pointer"}
                 onClick={() => handleOpenEditModal(dependent)}
@@ -205,7 +205,7 @@ const Dependents = () => {
             }
             secondImage={
               <BiSolidTrash
-                size={30}
+                size={25}
                 color='#088395'
                 cursor={"pointer"}
                 onClick={() => handleOpenDeleteModal(dependent)}
@@ -218,7 +218,7 @@ const Dependents = () => {
             w="full"
           >
             <Text
-              fontSize="md"
+              fontSize={["sm", "sms", "md", "md"]}
               color="secondary.600"
               fontWeight="semibold"
               pb=".5rem"
@@ -232,19 +232,19 @@ const Dependents = () => {
         type="submit"
         p="1rem"
         mb="2rem"
-        fontSize="md"
-        borderRadius="30px"
-        borderWidth=".2rem"
-        marginTop="1rem"
-        borderColor="#E0E0E0"
-        color="#F0F1F3"
         variant="solid"
-        backgroundColor="primary.600"
-        transition="background-color 0.3s, color 0.3s"
+        borderRadius="30px"
+        borderColor="primary.600"
+        borderWidth=".2rem"
+        color="primary.600"
+        backgroundColor="transparent" // Defina a cor de fundo desejada
+        transition="background-color 0.3s, color 0.3s" // Adicione uma transição suave
         _hover={{
           backgroundColor: "primary.600",
           color: "#F0F1F3",
         }}
+        fontSize="md"
+        marginTop="1rem"
         onClick={handleOpenAddModal}
       >
         Adicionar Dependente
@@ -256,32 +256,42 @@ const Dependents = () => {
         initialRef={initialRef}
         finalRef={finalRef}
       >
-        <ModalHeader>
+        <Flex
+          width="100%"
+          flexDirection="column"
+          alignItems="center"
+        >
           <Text
-            fontSize="2xl"
-            color="primary.600"
-            fontWeight="semibold"
+            fontSize={["xl", "md", "xl", "2xl"]}
+            fontWeight="black"
             pb=".5rem"
+            pt="2rem"
+            color="secondary.400"
           >
             Editar Dependente
           </Text>
-        </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <Formik
-            initialValues={initialValuesEdit}
-            validationSchema={validationSchema}
-            onSubmit={(values) => editDependent(values)}
+          <VStack
+            spacing={4}
+            align='stretch'
+            width="100%"
+            paddingY="2rem"
+            paddingX="2rem"
           >
-            {({ handleSubmit, errors, touched, isValid, dirty }) => (
-              <Flex
-                as={Form}
-                width="100%"
-                onSubmit={handleSubmit}
-                flexDirection="column"
-                alignItems="center"
+            <Flex alignItems="flex-start">
+              <Formik
+                initialValues={initialValuesEdit}
+                validationSchema={validationSchema}
+                onSubmit={(values) => editDependent(values)}
               >
-                <Flex
+                {({ handleSubmit, errors, touched, isValid, dirty }) => (
+                  <Flex
+                    as={Form}
+                    width="100%"
+                    onSubmit={handleSubmit}
+                    flexDirection="column"
+                    alignItems="center"
+                  >
+                    <Flex
                   height="50%"
                   width="70%"
                   flexDirection="column"
@@ -367,7 +377,7 @@ const Dependents = () => {
                     color: "#F0F1F3",
                   }}
                   mb="1rem"
-                  fontSize="2xl"
+                  fontSize={["md", "xl", "xl", "xl"]}
                 >
                   <Tooltip
                     label="Você precisa alterar alguma informação"
@@ -378,10 +388,12 @@ const Dependents = () => {
                     Salvar
                   </Tooltip>
                 </Button>
-              </Flex>
+                  </Flex>
             )}
-          </Formik>
-        </ModalBody>
+                  </Formik>
+          </Flex>
+          </VStack>
+        </Flex>
       </CustomModal>
       {/* Modal de Adição */}
       <CustomModal
@@ -390,100 +402,110 @@ const Dependents = () => {
         initialRef={initialRef}
         finalRef={finalRef}
       >
-        <ModalHeader>
+        <Flex
+          width="100%"
+          flexDirection="column"
+          alignItems="center"
+        >
           <Text
-            fontSize="2xl"
-            color="primary.600"
-            fontWeight="semibold"
+            fontSize={["xl", "md", "xl", "2xl"]}
+            fontWeight="black"
             pb=".5rem"
+            pt="2rem"
+            color="secondary.400"
           >
             Adicionar Dependente
           </Text>
-        </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <Formik
+          <VStack
+            spacing={4}
+            align='stretch'
+            width="100%"
+            paddingY="2rem"
+            paddingX="2rem"
+          >
+            <Flex alignItems="flex-start">
+            <Formik
             initialValues={initialValuesAdd}
             validationSchema={validationSchema}
             onSubmit={(values) => addDependent(values)}
           >
             {({ handleSubmit, errors, touched, isValid, dirty }) => (
               <Flex
-                as={Form}
-                width="100%"
-                onSubmit={handleSubmit}
+              as={Form}
+              width="100%"
+              onSubmit={handleSubmit}
+              flexDirection="column"
+              alignItems="center"
+            >
+              <Flex
+                height="50%"
+                width="70%"
                 flexDirection="column"
-                alignItems="center"
+                alignItems="flex-start"
+                justifyContent="flex-start"
+                mt="1rem"
+                overflowY="auto"
+                maxH="450px"
+                marginBottom="2rem"
+                px={2}
+                sx={{
+                  "&::-webkit-scrollbar": {
+                    marginLeft: "1rem",
+                    width: "4px",
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    background: "#f1f1f1",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    background: "#088395",
+                    borderRadius: "4px",
+                  },
+                  "&::-webkit-scrollbar-thumb:hover": {
+                    background: "#0A4D68",
+                  },
+                }}
               >
-                <Flex
-                  height="50%"
-                  width="70%"
-                  flexDirection="column"
-                  alignItems="flex-start"
-                  justifyContent="flex-start"
-                  mt="1rem"
-                  overflowY="auto"
-                  maxH="450px"
-                  marginBottom="2rem"
-                  px={2}
-                  sx={{
-                    "&::-webkit-scrollbar": {
-                      marginLeft: "1rem",
-                      width: "4px",
-                    },
-                    "&::-webkit-scrollbar-track": {
-                      background: "#f1f1f1",
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                      background: "#088395",
-                      borderRadius: "4px",
-                    },
-                    "&::-webkit-scrollbar-thumb:hover": {
-                      background: "#0A4D68",
-                    },
-                  }}
-                >
-                  <CustomInput
-                    label="Nome"
-                    icon={<BiUserCircle className='custom-icon' />}
-                    name="name"
-                    type="text"
-                    placeholder="Digite seu nome completo"
-                    height={'54px'}
-                    borderWidth=".2rem"
-                    borderRadius="30px"
-                    touched={touched}
-                    errors={errors}
-                  />
+                <CustomInput
+                  label="Nome"
+                  icon={<BiUserCircle className='custom-icon' />}
+                  name="name"
+                  type="text"
+                  placeholder="Digite seu nome completo"
+                  height={'54px'}
+                  borderWidth=".2rem"
+                  borderRadius="30px"
+                  touched={touched}
+                  errors={errors}
+                />
 
-                  <CustomInput
-                    label="CPF"
-                    icon={<BiNews color='gray.500' className='custom-icon' />}
-                    name="cpf"
-                    type="text"
-                    placeholder="Digite CPF para cadastro"
-                    height={'54px'}
-                    borderWidth=".2rem"
-                    borderRadius="30px"
-                    touched={touched}
-                    errors={errors}
-                  />
+                <CustomInput
+                  label="CPF"
+                  icon={<BiNews color='gray.500' className='custom-icon' />}
+                  name="cpf"
+                  type="text"
+                  placeholder="Digite CPF para cadastro"
+                  height={'54px'}
+                  borderWidth=".2rem"
+                  borderRadius="30px"
+                  touched={touched}
+                  errors={errors}
+                />
 
-                  <CustomInput
-                    label="Data de Nascimento"
-                    icon={<CalendarIcon className='custom-icon' color='gray.500' />}
-                    name="birthdate"
-                    type="date"
-                    placeholder="Selecione sua data de nascimento"
-                    height={'54px'}
-                    borderWidth=".2rem"
-                    borderRadius="30px"
-                    touched={touched}
-                    errors={errors}
-                  />
+                <CustomInput
+                  label="Data de Nascimento"
+                  icon={<CalendarIcon className='custom-icon' color='gray.500' />}
+                  name="birthdate"
+                  type="date"
+                  placeholder="Selecione sua data de nascimento"
+                  height={'54px'}
+                  borderWidth=".2rem"
+                  borderRadius="30px"
+                  touched={touched}
+                  errors={errors}
+                />
 
-                </Flex>
-                <Button
+              </Flex>
+              <Button
                   type="submit"
                   h="3rem"
                   w="10rem"
@@ -501,21 +523,23 @@ const Dependents = () => {
                     color: "#F0F1F3",
                   }}
                   mb="1rem"
-                  fontSize="2xl"
+                  fontSize={["md", "xl", "xl", "xl"]}
                 >
-                  <Tooltip
-                    label="Você precisa alterar alguma informação"
-                    placement="top"
-                    hasArrow
-                    isOpen={dirty ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
-                  >
-                    Salvar
-                  </Tooltip>
-                </Button>
-              </Flex>
+                <Tooltip
+                  label="Você precisa alterar alguma informação"
+                  placement="top"
+                  hasArrow
+                  isOpen={dirty ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
+                >
+                  Salvar
+                </Tooltip>
+              </Button>
+            </Flex>
             )}
-          </Formik>
-        </ModalBody>
+            </Formik>
+            </Flex>
+          </VStack>
+        </Flex>
       </CustomModal>
       <CustomModal
         isOpen={isOpenDeleteModal}

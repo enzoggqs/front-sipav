@@ -72,7 +72,7 @@ const Profile = () => {
         <Flex
           as={Form}
           backgroundColor="#F0F1F3"
-          width="36%"
+          width={["90%", "80%", "70%", "40%"]}
           pt={"2rem"}
           borderRadius="30px"
           flexDirection="column"
@@ -80,6 +80,7 @@ const Profile = () => {
           boxShadow="dark-lg"
           onSubmit={handleSubmit}
           maxH={"70vh"}
+          // px={["3rem", "4rem", "5rem", 0]}
         >
           <Flex
             justifyContent="center"
@@ -87,7 +88,7 @@ const Profile = () => {
             alignItems="center"
           >
             <Text
-              fontSize="xl"
+              fontSize={["md", "md", "xl", "xl"]}
               color="primary.600"
               fontWeight="semibold"
               pb=".5rem"
@@ -101,7 +102,7 @@ const Profile = () => {
             flexDirection="column"
             alignItems="flex-start"
             justifyContent="flex-start"
-            mt="2rem"
+            mt={["1rem", "2rem", "2rem", "2rem"]}
             overflowY="auto"
             maxH="400px"
             marginBottom="2rem"
@@ -185,7 +186,7 @@ const Profile = () => {
             borderRadius="30px"
             borderWidth=".2rem"
             isDisabled={!isValid || !dirty}
-            marginTop="1rem"
+            marginTop={["0", "0", "1rem", "1rem"]}
             color="primary.600"
             variant="solid"
             backgroundColor="transparent"

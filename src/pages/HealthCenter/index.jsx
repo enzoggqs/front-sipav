@@ -18,9 +18,10 @@ const HealthCenter = () => {
             flexDir="column"
             alignItems="center"
             w="full"
+            px="1rem"
         >
             <Text
-                fontSize="3xl"
+                fontSize={["xl", "xl", "2xl", "3xl"]}
                 color="secondary.400"
                 fontWeight="semibold"
                 onClick={() => navigate("/")}
@@ -33,6 +34,7 @@ const HealthCenter = () => {
                 mb="3rem"
                 overflowY="auto"
                 maxH="150px"
+                w={"50"}
                 sx={{
                   "&::-webkit-scrollbar": {
                     marginLeft: "1rem",
@@ -56,7 +58,7 @@ const HealthCenter = () => {
                     color="secondary.500"
                     p="1rem"
                     mb="1rem"
-                    fontSize="xl"
+                    fontSize={["sm", "md", "xl", "xl"]}
                     borderRadius="30px"
                     borderWidth=".2rem"
                 >

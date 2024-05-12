@@ -79,14 +79,14 @@ const Home = () => {
   return (
     <Flex
       backgroundColor="#F0F1F3"
-      width="36%"
+      width={["90%", "80%", "70%", "40%"]}
       pt={"2rem"}
       mt={"2rem"}
       borderRadius="30px"
       flexDirection="column"
       alignItems="center"
       boxShadow="dark-lg"
-      height="100%"
+      minHeight={["50vh", "80%", "70%", "100%"]}
       pb="1rem"
     >
       <Flex
