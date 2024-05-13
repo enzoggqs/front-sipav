@@ -13,7 +13,7 @@ import api from '../../services/Api';
 
 const Home = () => {
   const [diseases, setDiseases] = useState([])
-  // const [user, setUser] = useState()
+  const [user, setUser] = useState()
   const [currentUser, setCurrentUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -40,16 +40,16 @@ const Home = () => {
         }
       };
 
-      // async function fetchUserData() {
-      //   try {
-      //     console.log('entrou')
-      //     const response = await api.get(`/user/${userData.id}`);
-      //     setUser(response.data);
-      //     setCurrentUser(response.data);
-      //   } catch (error) {
-      //     console.error('Erro ao buscar dados do usuário:', error);
-      //   }
-      // }
+      async function fetchUserData() {
+        try {
+          console.log('entrou')
+          const response = await api.get(`/user/${userData.id}`);
+          setUser(response.data);
+          setCurrentUser(response.data);
+        } catch (error) {
+          console.error('Erro ao buscar dados do usuário:', error);
+        }
+      }
 
       const timeoutId = setTimeout(() => {
         setIsLoading(false); // Set loading to false after 1 second
@@ -57,7 +57,7 @@ const Home = () => {
 
       fetchDiseases();
 
-      // fetchUserData();
+      fetchUserData();
 
       return () => clearTimeout(timeoutId);
     }
