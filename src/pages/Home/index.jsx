@@ -24,6 +24,9 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false); // Set loading to false after 1 second
+    }, 1000);
     if (localStorage.getItem('@sipavAccessToken') === null) {
       navigate("/login")
     } else {
@@ -51,10 +54,6 @@ const Home = () => {
         }
       }
 
-      const timeoutId = setTimeout(() => {
-        setIsLoading(false); // Set loading to false after 1 second
-      }, 1000);
-
       fetchDiseases();
 
       fetchUserData();
@@ -79,15 +78,16 @@ const Home = () => {
 
   if (isLoading) {
     return (
-    <Flex
-      width="100%"
-      h="full"
-      flexDir="column"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Spinner size='xl' color="white" />
-    </Flex>)
+      <Flex
+        width="100%"
+        h="full"
+        flexDir="column"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Spinner size='xl' color="white" />
+      </Flex>
+    )
   }
 
   const sortedDiseases = diseases?.sort((a, b) => a.name.localeCompare(b.name));

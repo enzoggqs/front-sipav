@@ -1,4 +1,4 @@
-import { Button, Flex, Text, Tooltip, VStack } from '@chakra-ui/react'
+import { Button, Flex, Spinner, Text, Tooltip, VStack } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import React, { useEffect, useRef, useState } from 'react'
 import { BiNews, BiSolidEdit, BiSolidTrash, BiUserCircle } from 'react-icons/bi'
@@ -38,19 +38,31 @@ const Dependents = () => {
   const userData = JSON.parse(localStorage.getItem("@sipavUser"));
 
   useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false); // Set loading to false after 1 second
+    }, 1000);
+    
+    if (!userData) {
+      navigate('/login');
+      return;
+    }
+
     const fetchUserData = async () => {
       try {
-        const currentUser = await getAllDependents(userData.id);
+        const currentUser = await getAllDependents(userData?.id);
 
         console.log(currentUser)
         setUser(currentUser.data);
       } catch (error) {
+        navigate('/login');
         console.error('Erro ao buscar dados do usuário:', error);
       }
     }
 
     fetchUserData();
-  }, [userData.id]);
+
+    return () => clearTimeout(timeoutId);
+  }, [userData?.id]);
 
   const handleOpenEditModal = (dependent) => {
     setCurrentEditDependent(dependent.id);
@@ -137,6 +149,20 @@ const Dependents = () => {
       console.error('Failed to delete product:', error.message);
     }
   };
+
+  if(!user){
+    return (
+      <Flex
+        width="100%"
+        h="full"
+        flexDir="column"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Spinner size='xl' color="white" />
+      </Flex>
+    )
+  }
 
   return (
     <Flex

@@ -45,6 +45,11 @@ const Disease = () => {
       setLoading(false); // Set loading to false after 1 second
     }, 1000);
 
+    if (!userData) {
+      navigate('/login');
+      return;
+    }
+
     const fetchDisease = async () => {
       try {
         const response = await getDiseaseAndVaccine(diseaseId, userId);
