@@ -102,7 +102,8 @@ const Home = () => {
       flexDirection="column"
       alignItems="center"
       boxShadow="dark-lg"
-      minHeight={["50vh", "80%", "70%", "100%"]}
+      height={["100%", "100%", "100%", "100%"]}
+      maxHeight={["70vh", "70vh", "70vh", "70vh"]}
       pb="1rem"
     >
       <Flex
@@ -142,7 +143,7 @@ const Home = () => {
         justifyContent="flex-start"
         mt="1rem"
         overflowY="auto"
-        maxH="300px"
+        maxH="60vh"
         minH="100px"
         marginBottom="2rem"
         borderRadius="1rem"
