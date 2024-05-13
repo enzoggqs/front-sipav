@@ -300,8 +300,12 @@ const Disease = () => {
                 >
                   {currentVaccine?.length ? (
                     <>
-                      {currentVaccine[0]?.months_between_doses}{" "}
-                      {currentVaccine[0]?.months_between_doses > 1 ? "meses" : "mês"}
+                      {currentVaccine[0]?.months_between_doses !== "" && (
+                        <>
+                          {currentVaccine[0]?.months_between_doses}{" "}
+                          {currentVaccine[0]?.months_between_doses > 1 ? "meses" : "mês"}
+                        </>
+                      )}
                     </>
                   ) : (
                     "Indefinido"
@@ -668,7 +672,7 @@ const Disease = () => {
                 pt="2rem"
                 color="secondary.400"
               >
-                Sua Situação:
+                Adicionar Vacina
               </Text>
               <VStack
                 spacing={4}
