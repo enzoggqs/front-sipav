@@ -90,6 +90,8 @@ const Home = () => {
     </Flex>)
   }
 
+  const sortedDiseases = diseases?.sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <Flex
       backgroundColor="#F0F1F3"
@@ -163,7 +165,7 @@ const Home = () => {
           },
         }}
       >
-        {diseases.map((disease, index) => (
+        {sortedDiseases.map((disease, index) => (
           <CustomBox
             key={index}
             text={disease.name}
