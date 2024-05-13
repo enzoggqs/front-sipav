@@ -19,7 +19,7 @@ const MenuLinks = ({ isOpen }) => {
         >
           {isAuthenticated && (
             <>
-              <MenuItem to="/">Home</MenuItem>
+              <MenuItem to="/">Vacinas</MenuItem>
               <MenuItem to="/account">Perfil</MenuItem>
               <MenuItem to="/dependents">Dependentes</MenuItem>
             </>
