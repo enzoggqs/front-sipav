@@ -104,7 +104,7 @@ const Home = () => {
       boxShadow="dark-lg"
       height={["100%", "100%", "100%", "100%"]}
       maxHeight={["70vh", "70vh", "70vh", "70vh"]}
-      pb="1rem"
+      pb="2rem"
     >
       <Flex
         justifyContent="center"
