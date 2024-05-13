@@ -317,7 +317,18 @@ const Disease = () => {
                     <>
                       {currentVaccine[0]?.months_between_doses.trim() !== "" ? (
                         <>
-                          {currentVaccine[0]?.months_between_doses}{" "}
+                        {currentVaccine[0]?.months_between_doses >= 12 ? (
+                          <>
+                            {Number(currentVaccine[0]?.months_between_doses) / 12}{" "}
+                            {currentVaccine[0]?.months_between_doses > 12 ? "anos" : "ano"}
+                          </>
+                        ) : (
+                          <>
+                            {currentVaccine[0]?.months_between_doses}{" "}
+                            {currentVaccine[0]?.months_between_doses > 1 ? "meses" : "mês"}
+                          </>
+                        )}
+                          
                         </>
                       ) : ("-")}
                     </>
@@ -377,7 +388,7 @@ const Disease = () => {
                   </Box>
                 ) : (
                   <Text
-                    fontSize="md"
+                    fontSize={["xs", "sm", "md", "md"]}
                     flex="1"
                     overflowX="auto"
                     maxH="100px"
