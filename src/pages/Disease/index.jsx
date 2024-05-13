@@ -140,9 +140,9 @@ const Disease = () => {
 
   const isVaccineUpToDate = () => {
     // Verificar se o usuário foi vacinado alguma vez
-    if (currentVaccination?.length > 0) {
+    if (currentVaccination?.length, currentVaccine[0]?.doses_required) {
       // Se a vacina tem apenas uma dose, marcar como "Vacina em dia"
-      if (currentVaccine[0]?.doses_required === currentVaccination?.length) {
+      if (Number(currentVaccine[0]?.doses_required) === currentVaccination?.length) {
         return true;
       } else {
         // Se a vacina tem múltiplas doses, verificar a última dose tomada
@@ -205,22 +205,32 @@ const Disease = () => {
       >
         {currentDisease?.name}
       </Text>
-      <Select
-        fontSize={["xs", "sm", "md", "md"]}
-        color="primary.600"
-        fontWeight="semibold"
-        width={["50%", "20%", "20%", "20%"]}
-        borderColor="primary.600"
-        my="2rem"
-        onChange={handleUserChange}
-        value={selectedUserId || ''}
-        bg="#F0F1F3"
-      >
-        <option fontSize={["xs", "sm", "md", "md"]} value={user?.id}>{user.name}</option>
-        {user?.dependents?.map((dependent, index) => (
-          <option key={index} value={dependent?.id}>{dependent?.name}</option>
-        ))}
-      </Select>
+      <Flex alignItems={"center"} justifyContent={"center"} width={"100%"}>
+        <Text
+          fontSize={["md", "md", "xl", "xl"]}
+          color="secondary.400"
+          fontWeight="semibold"
+        >
+          Dados de: &nbsp;
+        </Text>
+        <Select
+          fontSize={["xs", "sm", "md", "md"]}
+          color="primary.600"
+          fontWeight="semibold"
+          width={["50%", "20%", "20%", "20%"]}
+          borderColor="primary.600"
+          my="2rem"
+          onChange={handleUserChange}
+          value={selectedUserId || ''}
+          bg="#F0F1F3"
+        >
+          <option fontSize={["xs", "sm", "md", "md"]} value={user?.id}>{user.name}</option>
+          {user?.dependents?.map((dependent, index) => (
+            <option key={index} value={dependent?.id}>{dependent?.name}</option>
+          ))}
+        </Select>
+
+      </Flex>
       <Stack
         justifyContent="center"
         width="100%"
@@ -308,7 +318,6 @@ const Disease = () => {
                       {currentVaccine[0]?.months_between_doses.trim() !== "" ? (
                         <>
                           {currentVaccine[0]?.months_between_doses}{" "}
-                          {currentVaccine[0]?.months_between_doses > 1 ? "meses" : "mês"}
                         </>
                       ) : ("-")}
                     </>
