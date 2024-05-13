@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import api from './Api';
 import PathRoutes from '../routes/PathRoutes';
+import { toast } from 'react-toastify';
 
 const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -39,6 +40,7 @@ const useAuth = () => {
         replace: true,
       });
     } catch (error) {
+      toast.error(error.response.data);
       throw error;
     }
   };
@@ -52,6 +54,7 @@ const useAuth = () => {
 
       signIn(data.email, data.password, navigate)
     } catch (error) {
+      toast.error(error.response.data);
       throw error;
     }
   };
@@ -71,6 +74,7 @@ const useAuth = () => {
         phoneNumber: data.phoneNumber,
       }));
     } catch (error) {
+      toast.error(error.response.data);
       throw error;
     }
   }

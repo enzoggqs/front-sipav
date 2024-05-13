@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import api from '../services/Api'
 
 const DiseaseAPI = () => {
@@ -13,7 +14,7 @@ const DiseaseAPI = () => {
 
             return response;
         } catch (error) {
-            console.error('Failed to fetch diseases:', error.message);
+            toast.error(error.response.data);
             throw error;
         }
     };
@@ -31,7 +32,7 @@ const DiseaseAPI = () => {
             return response;
         }
         catch (error) {
-            console.error('Failed to fetch disease:', error.message);
+            toast.error(error.response.data);
             throw error;
         }
 

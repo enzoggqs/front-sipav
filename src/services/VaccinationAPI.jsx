@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import api from '../services/Api'
 
 const VaccinationAPI = () => {
@@ -16,7 +17,8 @@ const VaccinationAPI = () => {
     
             return response;
         } catch (error) {
-            console.error('Failed to fetch vaccinations:', error.message);
+            toast.error(error.response.data);
+
             throw error;
         }
     };
@@ -39,7 +41,7 @@ const VaccinationAPI = () => {
 
             return
         } catch (error) {
-            console.error('Create vaccination error:', error.message);
+            toast.error(error.response.data);
             throw error;
         }
     };
@@ -57,7 +59,8 @@ const VaccinationAPI = () => {
 
             return
         } catch (error) {
-            console.error('Delete vaccination error:', error.message);
+            toast.error(error.response.data);
+
             throw error;
         }
     };

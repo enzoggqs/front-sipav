@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import api from './Api'
 
 const DependentAPI = () => {
@@ -16,7 +17,8 @@ const DependentAPI = () => {
     
             return response;
         } catch (error) {
-            console.error('Failed to fetch dependents:', error.message);
+            toast.error(error.response.data);
+
             throw error;
         }
     };
@@ -34,14 +36,14 @@ const DependentAPI = () => {
 
             return
         } catch (error) {
-            console.error('Create dependent error:', error.message);
+            toast.error(error.response.data);
+
             throw error;
         }
     };
 
     async function updateDependent (data, id) {
         data.birthdate = new Date(data.birthdate)
-        console.log(data)
         try {
             const token = localStorage.getItem('@sipavAccessToken');
 
@@ -53,7 +55,8 @@ const DependentAPI = () => {
         
             return
         } catch (error) {
-            console.error('Create dependent error:', error.message);
+            console.log('entrou')
+            toast.error(error.response.data);
             throw error;
         }
     };
@@ -71,7 +74,7 @@ const DependentAPI = () => {
 
             return
         } catch (error) {
-            console.error('Delete dependent error:', error.message);
+            toast.error(error.response.data);
             throw error;
         }
     };
