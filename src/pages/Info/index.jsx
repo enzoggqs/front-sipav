@@ -3,7 +3,7 @@ import React from 'react'
 
 const Info = () => {
   return (
-    <Flex width={"80%"} flexDirection={"column"} alignItems={"center"} justifyContent="center" p={4}>
+    <Flex mt="2rem" width={"80%"} flexDirection={"column"} alignItems={"center"} justifyContent="center" p={4}>
       <Heading fontSize={"3xl"} color={"secondary.300"} fontWeight={"bold"} mb={5}>
         SIPAV: Sistema de Informação para o Acompanhamento Vacinal
       </Heading>

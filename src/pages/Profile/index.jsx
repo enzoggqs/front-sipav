@@ -100,6 +100,7 @@ const Profile = () => {
             boxShadow="dark-lg"
             onSubmit={handleSubmit}
             maxH={"70vh"}
+            mt={"2rem"}
           // px={["3rem", "4rem", "5rem", 0]}
           >
             <Flex

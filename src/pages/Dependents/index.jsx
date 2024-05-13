@@ -169,6 +169,7 @@ const Dependents = () => {
       backgroundColor="#F0F1F3"
       width={["90%", "80%", "70%", "40%"]}
       pt={"2rem"}
+      mt={"2rem"}
       borderRadius="30px"
       flexDirection="column"
       alignItems="center"

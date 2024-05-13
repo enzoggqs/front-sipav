@@ -19,6 +19,7 @@ const HealthCenter = () => {
             alignItems="center"
             w="full"
             px="1rem"
+            mt="2rem"
         >
             <Text
                 fontSize={["xl", "xl", "2xl", "3xl"]}
