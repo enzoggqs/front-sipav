@@ -15,6 +15,32 @@ import "./customInput.css";
 
 const CustomInput = ({ icon, label, type, show, handleClick, touched, errors, ...props }) => {
   const today = new Date().toISOString().slice(0, 10);
+  const applyVisualCPFFormat = (value) => {
+    // Enhanced mask logic with optional separators and error handling
+    if (props.name === "cpf") {
+      const mask = "###.###.###-##"; // Standard CPF mask
+      let formattedValue = "";
+
+      if (value && !isNaN(value)) {
+        // Ensure value is a valid number
+        const numbers = value.toString().split('');
+        let index = 0;
+
+        for (let i = 0; i < mask.length; i++) {
+          if (mask[i] !== '#') {
+            formattedValue += mask[i];
+          } else if (numbers[index]) {
+            formattedValue += numbers[index];
+            index++;
+          }
+        }
+      }
+
+      return formattedValue;
+    }
+    return value;
+  };
+
 
   return (
     <Field name={props.name}>
@@ -43,7 +69,13 @@ const CustomInput = ({ icon, label, type, show, handleClick, touched, errors, ..
               max={type === 'date' ? today : undefined} // Handle non-date types gracefully
               height="2.5rem"
               fontSize={["sm", "md", "md", "md"]}
-              value={field.value || ""}
+              value={props.name == "cpf" ? applyVisualCPFFormat(field.value) : (field.value || "")}
+              onChange={(e) => {
+                const unformattedValue = e.target.value.replace(/\D/g, '')
+                props.name == "cpf" ? ( // Remove non-digits
+                form.setFieldValue(field.name, unformattedValue)) : (
+                form.setFieldValue(field.name, e.target.value)); // Atualizar o valor do campo no Formik
+              }}
             />
             {type === "password" && (
               <InputRightElement h="full" width={["4.5rem", "4.5rem", "4.5rem", "4.5rem"]}>

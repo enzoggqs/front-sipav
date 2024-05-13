@@ -44,7 +44,7 @@ const Register = () => {
       .required("O campo nome é obrigatório."),
     cpf: Yup.string()
       .required("O campo CPF é obrigatório.")
-      .min(11),
+      .min(11, "O CPF deve ter 11 dígitos"),
     birthdate: Yup.date()
       .required("O campo data de nascimento é obrigatório."),
   });
