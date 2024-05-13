@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import {
   Flex,
   Text,
-  Select
+  Select,
+  Spinner
 } from '@chakra-ui/react'
 import { GoArrowRight } from 'react-icons/go'
 import DiseaseAPI from '../../services/DiseaseApi.jsx';
@@ -12,7 +13,7 @@ import api from '../../services/Api';
 
 const Home = () => {
   const [diseases, setDiseases] = useState([])
-  const [user, setUser] = useState()
+  // const [user, setUser] = useState()
   const [currentUser, setCurrentUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -33,47 +34,60 @@ const Home = () => {
           console.log('aqui', diseasesData)
 
           setDiseases(diseasesData.data);
-          setIsLoading(false);
         } catch (error) {
 
           console.error('Failed to fetch diseases:', error.message);
         }
       };
 
-      async function fetchUserData() {
-        try {
-          console.log('entrou')
-          const response = await api.get(`/user/${userData.id}`);
-          setUser(response.data);
-          setCurrentUser(response.data);
-          setIsLoading(false);
-        } catch (error) {
-          console.error('Erro ao buscar dados do usuário:', error);
-        }
-      }
+      // async function fetchUserData() {
+      //   try {
+      //     console.log('entrou')
+      //     const response = await api.get(`/user/${userData.id}`);
+      //     setUser(response.data);
+      //     setCurrentUser(response.data);
+      //   } catch (error) {
+      //     console.error('Erro ao buscar dados do usuário:', error);
+      //   }
+      // }
+
+      const timeoutId = setTimeout(() => {
+        setIsLoading(false); // Set loading to false after 1 second
+      }, 1000);
 
       fetchDiseases();
 
-      fetchUserData();
+      // fetchUserData();
+
+      return () => clearTimeout(timeoutId);
     }
 
   }, []);
 
-  const handleUserChange = (event) => {
-    const selectedUserId = event.target.value;
-  
-    if (isLoading) { // Handle loading state
-      return;
-    }
-  
-    console.log(typeof selectedUserId); // Log data type for debugging
-    const selectedUser = user?.dependents?.find(dependent => dependent.id === Number(selectedUserId)); // Ensure consistent data types
-    console.log(selectedUser);
-    setCurrentUser(selectedUser);
-  };
+  // const handleUserChange = (event) => {
+  //   const selectedUserId = event.target.value;
+
+  //   if (isLoading) { // Handle loading state
+  //     return;
+  //   }
+
+  //   console.log(typeof selectedUserId); // Log data type for debugging
+  //   const selectedUser = user?.dependents?.find(dependent => dependent.id === Number(selectedUserId)); // Ensure consistent data types
+  //   console.log(selectedUser);
+  //   setCurrentUser(selectedUser);
+  // };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+    <Flex
+      width="100%"
+      h="full"
+      flexDir="column"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Spinner size='xl' color="white" />
+    </Flex>)
   }
 
   return (
