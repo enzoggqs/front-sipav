@@ -300,7 +300,7 @@ const Disease = () => {
                 >
                   {currentVaccine?.length ? (
                     <>
-                      {currentVaccine[0]?.months_between_doses !== "" && (
+                      {currentVaccine[0]?.months_between_doses.trim() !== "" && (
                         <>
                           {currentVaccine[0]?.months_between_doses}{" "}
                           {currentVaccine[0]?.months_between_doses > 1 ? "meses" : "mês"}
