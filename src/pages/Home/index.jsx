@@ -165,16 +165,16 @@ const Home = () => {
           },
         }}
       >
-        {sortedDiseases.map((disease, index) => (
+        {sortedDiseases?.map((disease, index) => (
           <CustomBox
             key={index}
-            text={disease.name}
+            text={disease?.name}
             firstImage={
               <GoArrowRight
                 size={30}
                 color='#088395'
                 cursor={"pointer"}
-                onClick={() => navigate(`/disease/${disease.id}/user/${currentUser.id}`)}
+                onClick={() => navigate(`/disease/${disease?.id}/user/${currentUser?.id}`)}
               />
             }
           />
