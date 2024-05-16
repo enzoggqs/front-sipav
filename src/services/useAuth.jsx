@@ -27,7 +27,6 @@ const useAuth = () => {
         email: data.userExists.email,
         name: data.userExists.name,
         cpf: data.userExists.cpf,
-        telegram: data.userExists.telegram,
         phoneNumber: data.userExists.phoneNumber,
         dependents: data.userExists.dependents,
       }));
@@ -70,7 +69,6 @@ const useAuth = () => {
         email: data.email,
         name: data.name,
         cpf: data.cpf,
-        telegram: data.telegram,
         phoneNumber: data.phoneNumber,
       }));
     } catch (error) {

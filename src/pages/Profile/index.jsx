@@ -63,7 +63,6 @@ const Profile = () => {
     id: user.id,
     email: user.email,
     name: user.name,
-    telegram: user.telegram || '',
     phoneNumber: user.phoneNumber || '',
   };
 
@@ -178,19 +177,6 @@ const Profile = () => {
                 name="phoneNumber"
                 type="number"
                 placeholder="Digite seu telefone"
-                height={'50px'}
-                borderWidth=".2rem"
-                borderRadius="30px"
-                touched={touched}
-                errors={errors}
-              />
-
-              <CustomInput
-                label="Telegram"
-                icon={<FaTelegram className='custom-icon' color='gray.500' />}
-                name="telegram"
-                type="text"
-                placeholder="Digite seu usuário do Telegram"
                 height={'50px'}
                 borderWidth=".2rem"
                 borderRadius="30px"

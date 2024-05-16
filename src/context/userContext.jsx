@@ -8,7 +8,6 @@ export const UserProvider = ({children}) => {
         name: "",
         cpf: "",
         birthdate: "",
-        telegram: "",
         phoneNumber: "",
     })
 

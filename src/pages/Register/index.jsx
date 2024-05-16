@@ -29,7 +29,6 @@ const Register = () => {
     name: "",
     cpf: "",
     birthdate: "",
-    telegram: "",
     phoneNumber: "",
   };
 
@@ -280,27 +279,6 @@ const Register = () => {
                           touched={touched}
                           errors={errors}
                           isDisabled={!whatsappChecked}
-                        />
-                      </GridItem>
-                      <Checkbox
-                        borderColor="gray"
-                        pt={["1rem", "1rem", "2rem", "2rem"]}
-                        colorScheme='gray'
-                        onChange={(e) => setTelegramChecked(e.target.checked)}
-                      />
-                      <GridItem>
-                        <CustomInput
-                          label="Telegram"
-                          icon={<FaTelegram className='custom-icon' color='gray.500' />}
-                          name="telegram"
-                          type="text"
-                          placeholder="Digite seu Telegram"
-                          height={'54px'}
-                          borderWidth=".2rem"
-                          borderRadius="30px"
-                          touched={touched}
-                          errors={errors}
-                          isDisabled={!telegramChecked}
                         />
                       </GridItem>
                     </Grid>
