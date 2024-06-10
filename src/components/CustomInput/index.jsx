@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { Field } from 'formik';
-import "./customInput.css";
 
 const CustomInput = ({ icon, label, type, show, handleClick, touched, errors, ...props }) => {
   const today = new Date().toISOString().slice(0, 10);

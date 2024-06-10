@@ -5,7 +5,7 @@ import CustomInput from '../../components/CustomInput';
 import * as Yup from "yup";
 import { BiUserCircle } from 'react-icons/bi';
 import { Formik, Form } from 'formik';
-import { FaTelegram, FaWhatsapp } from 'react-icons/fa6';
+import { FaWhatsapp } from 'react-icons/fa6';
 import { CalendarIcon, EmailIcon } from '@chakra-ui/icons';
 import { Button, Image, Spinner } from '@chakra-ui/react';
 import { Tooltip } from '@chakra-ui/react'

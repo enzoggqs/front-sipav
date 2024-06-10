@@ -64,6 +64,7 @@ const Login = () => {
               alignItems="center"
               boxShadow="dark-lg"
               px={["3rem", "4rem", "5rem", "5rem"]}
+              data-testid="valid-form"
             >
               <Text
                 fontSize={["2xl", "3xl", "3xl", "3xl"]}
@@ -116,6 +117,7 @@ const Login = () => {
                 />
               </Flex>
               <Button
+                data-testid="login-button"
                 type="submit"
                 isDisabled={!isValid || !dirty}
                 marginTop="1rem"

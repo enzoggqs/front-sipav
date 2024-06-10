@@ -39,7 +39,6 @@ const Dependents = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setIsLoading(false); // Set loading to false after 1 second
     }, 1000);
     
     if (!userData) {
@@ -357,6 +356,7 @@ const Dependents = () => {
                     borderRadius="30px"
                     touched={touched}
                     errors={errors}
+                    data-testid="name-input"
                   />
 
                   <CustomInput
@@ -370,6 +370,7 @@ const Dependents = () => {
                     borderRadius="30px"
                     touched={touched}
                     errors={errors}
+                    data-testid="cpf-input"
                   />
 
                   <CustomInput
@@ -383,6 +384,7 @@ const Dependents = () => {
                     borderRadius="30px"
                     touched={touched}
                     errors={errors}
+                    data-testid="birthdate-input"
                   />
 
                 </Flex>

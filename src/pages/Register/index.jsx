@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CustomInput from '../../components/CustomInput/index.jsx';
 import { BiUserCircle, BiNews } from "react-icons/bi";
 import { FiMail } from "react-icons/fi";
-import { FaTelegram, FaWhatsapp, FaLock, FaCalendar } from "react-icons/fa6";
+import { FaWhatsapp, FaLock, FaCalendar } from "react-icons/fa6";
 import useAuth from '../../services/useAuth.jsx';
 
 const Register = () => {
@@ -17,7 +17,6 @@ const Register = () => {
   const isAuth = isAuthenticated;
 
   const [whatsappChecked, setWhatsappChecked] = useState(false);
-  const [telegramChecked, setTelegramChecked] = useState(false);
   const [show, setShow] = useState(false)
   const [step, setStep] = useState(1)
 
