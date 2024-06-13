@@ -24,59 +24,29 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false); // Set loading to false after 1 second
-    }, 1000);
     if (localStorage.getItem('@sipavAccessToken') === null) {
-      navigate("/login")
+      navigate("/login");
     } else {
-      const fetchDiseases = async () => {
+      const fetchData = async () => {
         try {
           const diseasesData = await getAllDiseases();
-
-          console.log('aqui', diseasesData)
-
+          console.log(diseasesData)
           setDiseases(diseasesData.data);
-        } catch (error) {
-
-          console.error('Failed to fetch diseases:', error.message);
-        }
-      };
-
-      async function fetchUserData() {
-        try {
-          console.log('entrou')
           const response = await api.get(`/user/${userData.id}`);
           setUser(response.data);
           setCurrentUser(response.data);
         } catch (error) {
-          console.error('Erro ao buscar dados do usuário:', error);
+          console.error('Erro ao buscar dados:', error);
+        } finally {
+          setIsLoading(false); // Set loading to false after data fetching
         }
-      }
-
-      fetchDiseases();
-
-      fetchUserData();
-
-      return () => clearTimeout(timeoutId);
+      };
+  
+      fetchData();
     }
-
   }, []);
 
-  // const handleUserChange = (event) => {
-  //   const selectedUserId = event.target.value;
-
-  //   if (isLoading) { // Handle loading state
-  //     return;
-  //   }
-
-  //   console.log(typeof selectedUserId); // Log data type for debugging
-  //   const selectedUser = user?.dependents?.find(dependent => dependent.id === Number(selectedUserId)); // Ensure consistent data types
-  //   console.log(selectedUser);
-  //   setCurrentUser(selectedUser);
-  // };
-
-  if (isLoading) {
+  if (!diseases || !user) {
     return (
       <Flex
         width="100%"

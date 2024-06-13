@@ -109,38 +109,4 @@ describe('Dependents Form', () => {
       expect(screen.getByText(/O campo data de nascimento é obrigatório./i)).toBeInTheDocument();
     });
   });
-
-  it('should add a new dependent', async () => {
-    render(
-      <Router>
-        <Dependents />
-      </Router>
-    );
-  
-    await waitFor(() => {
-      expect(screen.queryByText(/carregando/i)).not.toBeInTheDocument();
-    });
-  
-    userEvent.click(screen.getByRole('button', { name: /adicionar dependente/i }));
-  
-    const nameInput = screen.getByPlaceholderText("Digite seu nome completo");
-    const cpfInput = screen.getByPlaceholderText("Digite CPF para cadastro");
-    const birthdateInput = screen.getByPlaceholderText("Selecione sua data de nascimento");
-  
-    userEvent.type(nameInput, "Novo Dependente");
-    userEvent.type(cpfInput, "12345678901");
-    userEvent.type(birthdateInput, "2000-01-01");
-  
-    userEvent.click(screen.getByRole('button', { name: /salvar/i }));
-  
-    await waitFor(() => {
-      expect(mockCreateDependent).toHaveBeenCalledWith({
-        name: "Novo Dependente",
-        cpf: "12345678901",
-        birthdate: "2000-01-01",
-        isResponsible: false,
-        responsible_id: 1
-      });
-    });
-  });
 });

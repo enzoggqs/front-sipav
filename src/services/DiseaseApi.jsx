@@ -14,7 +14,7 @@ const DiseaseAPI = () => {
 
             return response;
         } catch (error) {
-            toast.error(error.response.data);
+            toast.error(error.response?.data);
             throw error;
         }
     };
@@ -32,7 +32,7 @@ const DiseaseAPI = () => {
             return response;
         }
         catch (error) {
-            toast.error(error.response.data);
+            toast.error(error.response?.data);
             throw error;
         }
 

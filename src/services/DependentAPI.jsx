@@ -17,7 +17,7 @@ const DependentAPI = () => {
     
             return response;
         } catch (error) {
-            toast.error(error.response.data);
+            toast.error(error.response?.data);
 
             throw error;
         }
@@ -36,7 +36,7 @@ const DependentAPI = () => {
 
             return
         } catch (error) {
-            toast.error(error.response.data);
+            toast.error(error.response?.data);
 
             throw error;
         }
@@ -56,7 +56,7 @@ const DependentAPI = () => {
             return
         } catch (error) {
             console.log('entrou')
-            toast.error(error.response.data);
+            toast.error(error.response?.data);
             throw error;
         }
     };
@@ -74,7 +74,7 @@ const DependentAPI = () => {
 
             return
         } catch (error) {
-            toast.error(error.response.data);
+            toast.error(error.response?.data);
             throw error;
         }
     };
