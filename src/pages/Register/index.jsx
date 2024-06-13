@@ -8,7 +8,7 @@ import CustomInput from '../../components/CustomInput/index.jsx';
 import { BiUserCircle, BiNews } from "react-icons/bi";
 import { FiMail } from "react-icons/fi";
 import { FaWhatsapp, FaLock, FaCalendar } from "react-icons/fa6";
-import useAuth from '../../services/useAuth.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 const Register = () => {
   const navigate = useNavigate();

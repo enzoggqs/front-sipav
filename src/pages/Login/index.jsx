@@ -6,7 +6,7 @@ import { Form, Formik } from 'formik';
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import CustomInput from '../../components/CustomInput/index.jsx';
-import useAuth from '../../services/useAuth.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 const Login = () => {
   const navigate = useNavigate();

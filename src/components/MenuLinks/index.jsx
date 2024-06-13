@@ -1,9 +1,9 @@
 import { Box, Button, Stack } from "@chakra-ui/react";
 import MenuItem from "../MenuItem";
-import useAuth from "../../services/useAuth";
+import { useAuth } from "../../context/AuthContext";
 
 const MenuLinks = ({ isOpen }) => {
-    const { signOut, isAuthenticated } = useAuth();
+    const { signOut, isAuthenticated, userType } = useAuth();
 
     return (
       <Box
@@ -17,7 +17,7 @@ const MenuLinks = ({ isOpen }) => {
           direction={["column", "row", "row", "row"]}
           pt={[4, 4, 0, 0]}
         >
-          {isAuthenticated && (
+          {(isAuthenticated && (userType === 0)) && (
             <>
               <MenuItem to="/">Vacinas</MenuItem>
               <MenuItem to="/account">Perfil</MenuItem>

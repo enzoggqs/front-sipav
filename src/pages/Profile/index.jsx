@@ -10,9 +10,9 @@ import { CalendarIcon, EmailIcon } from '@chakra-ui/icons';
 import { Button, Image, Spinner } from '@chakra-ui/react';
 import { Tooltip } from '@chakra-ui/react'
 import { GoArrowLeft } from "react-icons/go";
-import useAuth from '../../services/useAuth';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/Api';
+import { useAuth } from '../../context/AuthContext';
 
 const Profile = () => {
   const { isAuthenticated, update } = useAuth();
