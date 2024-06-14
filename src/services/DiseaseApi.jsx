@@ -38,7 +38,29 @@ const DiseaseAPI = () => {
 
     }
 
-    return { getAllDiseases, getDiseaseAndVaccine }
+    const getDiseaseVaccinationPercentage = async (id, userType) => {
+        try {
+            const token = localStorage.getItem('@sipavAccessToken');
+
+            if (!token) {
+                throw new Error('Authorization token not found');
+            }
+
+            if(userType !== 1) {
+                throw new Error('User not permited');
+            }
+
+            const response = await api.get(`/disease/vaccination-percentage/${id}`);
+
+            return response;
+        }
+        catch (error) {
+            toast.error(error.response?.data);
+            throw error;
+        }
+    }
+
+    return { getAllDiseases, getDiseaseAndVaccine, getDiseaseVaccinationPercentage }
 }
 
 export default DiseaseAPI

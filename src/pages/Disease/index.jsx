@@ -202,35 +202,39 @@ const Disease = () => {
         fontSize={["2xl", "2xl", "3xl", "3xl"]}
         color="secondary.400"
         fontWeight="semibold"
+        mb="2rem"
       >
         {currentDisease?.name}
       </Text>
-      <Flex alignItems={"center"} justifyContent={"center"} width={"100%"}>
-        <Text
-          fontSize={["md", "md", "xl", "xl"]}
-          color="secondary.400"
-          fontWeight="semibold"
-        >
-          Dados de: &nbsp;
-        </Text>
-        <Select
-          fontSize={["xs", "sm", "md", "md"]}
-          color="primary.600"
-          fontWeight="semibold"
-          width={["50%", "20%", "20%", "20%"]}
-          borderColor="primary.600"
-          my="2rem"
-          onChange={handleUserChange}
-          value={selectedUserId || ''}
-          bg="#F0F1F3"
-        >
-          <option fontSize={["xs", "sm", "md", "md"]} value={user?.id}>{user.name}</option>
-          {user?.dependents?.map((dependent, index) => (
-            <option key={index} value={dependent?.id}>{dependent?.name}</option>
-          ))}
-        </Select>
+      {userData.type === 0 && (
+        <Flex alignItems={"center"} justifyContent={"center"} width={"100%"}>
+          <Text
+            fontSize={["md", "md", "xl", "xl"]}
+            color="secondary.400"
+            fontWeight="semibold"
+          >
+            Dados de: &nbsp;
+          </Text>
+          <Select
+            fontSize={["xs", "sm", "md", "md"]}
+            color="primary.600"
+            fontWeight="semibold"
+            width={["50%", "20%", "20%", "20%"]}
+            borderColor="primary.600"
+            mb="2rem"
+            onChange={handleUserChange}
+            value={selectedUserId || ''}
+            bg="#F0F1F3"
+          >
+            <option fontSize={["xs", "sm", "md", "md"]} value={user?.id}>{user.name}</option>
+            {user?.dependents?.map((dependent, index) => (
+              <option key={index} value={dependent?.id}>{dependent?.name}</option>
+            ))}
+          </Select>
 
-      </Flex>
+        </Flex>
+
+      )}
       <Stack
         justifyContent="center"
         width="100%"
@@ -317,18 +321,18 @@ const Disease = () => {
                     <>
                       {currentVaccine[0]?.months_between_doses.trim() !== "" ? (
                         <>
-                        {currentVaccine[0]?.months_between_doses >= 12 ? (
-                          <>
-                            {Number(currentVaccine[0]?.months_between_doses) / 12}{" "}
-                            {currentVaccine[0]?.months_between_doses > 12 ? "anos" : "ano"}
-                          </>
-                        ) : (
-                          <>
-                            {currentVaccine[0]?.months_between_doses}{" "}
-                            {currentVaccine[0]?.months_between_doses > 1 ? "meses" : "mês"}
-                          </>
-                        )}
-                          
+                          {currentVaccine[0]?.months_between_doses >= 12 ? (
+                            <>
+                              {Number(currentVaccine[0]?.months_between_doses) / 12}{" "}
+                              {currentVaccine[0]?.months_between_doses > 12 ? "anos" : "ano"}
+                            </>
+                          ) : (
+                            <>
+                              {currentVaccine[0]?.months_between_doses}{" "}
+                              {currentVaccine[0]?.months_between_doses > 1 ? "meses" : "mês"}
+                            </>
+                          )}
+
                         </>
                       ) : ("-")}
                     </>
@@ -413,14 +417,18 @@ const Disease = () => {
               </Flex>
             </VStack>
             <Divider my="1.5rem" />
-            <Text
-              fontSize={["md", "md", "xl", "xl"]}
-              color="secondary.400"
-              fontWeight="semibold"
-              mb="2rem"
-            >
-              Sua situação
-            </Text>
+            {userData.type === 0 &&
+              (
+                <Text
+                  fontSize={["md", "md", "xl", "xl"]}
+                  color="secondary.400"
+                  fontWeight="semibold"
+                  mb="2rem"
+                >
+                  Sua situação
+                </Text>
+              )
+            }
             <VStack
               divider={<StackDivider borderColor='gray.200' />}
               spacing={4}
