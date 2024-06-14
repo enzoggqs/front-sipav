@@ -31,7 +31,7 @@ const Info = () => {
       </Text>
 
       <Box mt={16} textAlign="center" pb={4}>
-        <Text fontWeight={"bold"} fontSize={"xl"} color="secondary.300">Desenvolvido por <Link bg={"secondary.300"} href="https://github.com/enzoggqs" isExternal color="primary.500" >Enzo Gabriel</Link></Text>
+        <Text fontWeight={"bold"} fontSize={"xl"} color="secondary.300">Projeto desenvolvido pela <Link bg={"secondary.300"} href="https://www.unb.br/" isExternal color="primary.500" >Universidade de Brasília</Link></Text>
       </Box>
     </Flex>
   )
