@@ -206,8 +206,8 @@ const Disease = () => {
       >
         {currentDisease?.name}
       </Text>
-      {userData.type === 0 && (
-        <Flex alignItems={"center"} justifyContent={"center"} width={"100%"}>
+      {userData.type === "REGULAR" && (
+        <Flex mb="2rem" alignItems={"center"} justifyContent={"center"} width={"100%"}>
           <Text
             fontSize={["md", "md", "xl", "xl"]}
             color="secondary.400"
@@ -221,7 +221,6 @@ const Disease = () => {
             fontWeight="semibold"
             width={["50%", "20%", "20%", "20%"]}
             borderColor="primary.600"
-            mb="2rem"
             onChange={handleUserChange}
             value={selectedUserId || ''}
             bg="#F0F1F3"
@@ -241,7 +240,7 @@ const Disease = () => {
         px="10%"
         gap="6rem"
         alignItems="flex-start"
-        direction={['column', 'row']}
+        direction={['column', 'column', 'column', 'row']}
       >
         <Flex width="100%" justifyContent="center">
           <Flex
@@ -417,7 +416,7 @@ const Disease = () => {
               </Flex>
             </VStack>
             <Divider my="1.5rem" />
-            {userData.type === 0 &&
+            {userData.type === "REGULAR" &&
               (
                 <Text
                   fontSize={["md", "md", "xl", "xl"]}

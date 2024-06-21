@@ -17,11 +17,12 @@ const MenuLinks = ({ isOpen }) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        {isAuthenticated && (
-          <MenuItem to="/">Vacinas</MenuItem>
+        {(isAuthenticated && (userType === "ADMIN")) && (
+          <MenuItem to="/">Doenças</MenuItem>
         )}
-        {(isAuthenticated && (userType === 0)) && (
+        {(isAuthenticated && (userType === "REGULAR")) && (
           <>
+            <MenuItem to="/">Vacinas</MenuItem>
             <MenuItem to="/account">Perfil</MenuItem>
             <MenuItem to="/dependents">Dependentes</MenuItem>
           </>

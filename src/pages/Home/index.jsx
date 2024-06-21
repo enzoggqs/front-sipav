@@ -85,7 +85,7 @@ const Home = () => {
   };
 
   const handleDiseaseInfo = (diseaseId) => {
-    if (user?.type === 0) {
+    if (user?.type === "REGULAR") {
       navigate(`/disease/${diseaseId}/user/${user?.id}`)
     } else {
       handleOpenModal(diseaseId);
@@ -155,7 +155,7 @@ const Home = () => {
           color="primary.600"
           fontWeight="semibold"
         >
-          {user?.type === 0 ? 'Minhas Vacinas' : 'Situação de Vacinação dos Usuários'}
+          {user?.type === "REGULAR" ? 'Minhas Vacinas' : 'Situação de Vacinação dos Usuários'}
         </Text>
         {/* <Select
           fontSize="md"
