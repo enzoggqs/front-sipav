@@ -40,6 +40,12 @@ const CustomInput = ({ icon, label, type, show, handleClick, touched, errors, ..
     return value;
   };
 
+  const getType = () => {
+    if (type === "password") {
+      return show ? "text" : "password";
+    }
+    return type;
+  };
 
   return (
     <Field name={props.name}>
@@ -64,7 +70,7 @@ const CustomInput = ({ icon, label, type, show, handleClick, touched, errors, ..
               autoComplete="on"
               {...field}
               {...props}
-              type={type === "password" ? (show ? "text" : "password") : type}
+              type={getType()}
               max={type === 'date' ? today : undefined} // Handle non-date types gracefully
               height="2.5rem"
               fontSize={["sm", "md", "md", "md"]}
