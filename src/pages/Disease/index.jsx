@@ -136,7 +136,7 @@ const Disease = () => {
 
   const isVaccineUpToDate = () => {
     // Verificar se o usuário foi vacinado alguma vez
-    if (currentVaccination?.length, currentVaccine[0]?.doses_required) {
+    if (currentVaccination?.length && currentVaccine[0]?.doses_required) {
       // Se a vacina tem apenas uma dose, marcar como "Vacina em dia"
       if (Number(currentVaccine[0]?.doses_required) === currentVaccination?.length) {
         return true;
@@ -235,7 +235,7 @@ const Disease = () => {
           >
             <option fontSize={["xs", "sm", "md", "md"]} value={user?.id}>{user.name}</option>
             {user?.dependents?.map((dependent, index) => (
-              <option key={index} value={dependent?.id}>{dependent?.name}</option>
+              <option key={dependent.id} value={dependent?.id}>{dependent?.name}</option>
             ))}
           </Select>
 
@@ -344,13 +344,13 @@ const Disease = () => {
                     <UnorderedList>
                       {currentVaccine[0]?.contraindications.map((contraindication, index) => (
                         <ListItem
-                          key={index}
+                          key={contraindication}
                         >
                           <Text
                             fontSize={["xs", "sm", "md", "md"]}
                             flex="1"
                             overflowY="auto"
-                            key={index}
+                            key={contraindication}
                             sx={{
                               alignSelf: 'start', // Adicione esta linha para alinhar os textos ao início do contêiner
                               "&::-webkit-scrollbar": {
@@ -596,14 +596,14 @@ const Disease = () => {
                   <UnorderedList>
                     {currentDisease?.symptoms.map((symptom, index) => (
                       <ListItem
-                        key={index}
+                        key={symptom}
                       >
                         <Text
                           fontSize={["xs", "sm", "md", "md"]}
                           flex="1"
                           overflowY="auto"
                           // maxH="150px"
-                          key={index}
+                          key={symptom}
                           sx={{
                             alignSelf: 'start', // Adicione esta linha para alinhar os textos ao início do contêiner
                             "&::-webkit-scrollbar": {
@@ -775,7 +775,7 @@ const Disease = () => {
                           mb={["0", "0", "2rem", "2rem"]}
                           fontSize={["md", "xl", "xl", "xl"]}
                         >
-                          Adicionar vacina a {currentUser && currentUser.name ? currentUser.name.split(" ")[0] : ""}
+                          Adicionar vacina a {currentUser?.name?.split(" ")[0] ?? ""}
                         </Button>
                       </Flex>
                     )
@@ -816,7 +816,7 @@ const Disease = () => {
                 paddingX="2rem"
               >
                 {currentVaccination?.map((vaccination, index) => (
-                  <Flex key={index} alignItems="center" justifyContent="flex-start">
+                  <Flex key={vaccination.id} alignItems="center" justifyContent="flex-start">
                     <Text
                       fontSize={["sm", "md", "xl", "xl"]}
                       fontWeight="medium"

@@ -25,12 +25,11 @@ const Profile = () => {
   const userData = JSON.parse(localStorage.getItem("@sipavUser"));
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false); // Set loading to false after 1 second
-    }, 1000);
-    if (!userData) {
-      navigate("/login")
+    if (!isAuthenticated) {
+      navigate("/login");
+      return
     }
+
     async function fetchUserData() {
       try {
         const response = await api.get(`/user/${userData?.id}`);
@@ -42,8 +41,7 @@ const Profile = () => {
 
     fetchUserData();
 
-    return () => clearTimeout(timeoutId);
-  }, []);
+  }, [isAuthenticated, navigate, userData?.id]);
 
   if (isLoading) {
     return (

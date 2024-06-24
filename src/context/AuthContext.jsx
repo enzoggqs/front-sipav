@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import api from '../services/Api';
 import PathRoutes from '../routes/PathRoutes';
 import { toast } from 'react-toastify';
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     // Verificar se o usuário está autenticado ao carregar o componente
     setIsAuthenticated(localStorage.getItem('@sipavAccessToken') !== null);
     const user = JSON.parse(localStorage.getItem('@sipavUser'));
-    console.log(user)
+    console.log(user);
     if (user) {
       setUserType(user.type);
     }
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
       api.defaults.headers.authorization = `Token ${token}`;
       
-      console.log(data.userExists.type)
+      console.log(data.userExists.type);
       setIsAuthenticated(true);
       setUserType(data.userExists.type);
       
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
         isResponsible: true,
       });
 
-      signIn(data.email, data.password, navigate)
+      signIn(data.email, data.password, navigate);
     } catch (error) {
       toast.error(error.response.data);
       throw error;
@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }) => {
       toast.error(error.response.data);
       throw error;
     }
-  }
+  };
 
   const signOut = () => {
     api.defaults.headers.authorization = '';
@@ -96,8 +96,17 @@ export const AuthProvider = ({ children }) => {
     window.location.href = PathRoutes.LOGIN;
   };
 
+  const value = useMemo(() => ({
+    isAuthenticated,
+    signIn,
+    register,
+    update,
+    signOut,
+    userType,
+  }), [isAuthenticated, userType]);
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn, register, update, signOut, userType }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );

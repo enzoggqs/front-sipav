@@ -33,7 +33,6 @@ const VaccinationAPI = () => {
             const response = await api.get(`/vaccination/${userId}/${vaccineId}`);
 
             console.log(response)
-            // const responseData = await response.json();
 
             return response;
         } catch (error) {

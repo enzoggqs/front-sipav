@@ -54,7 +54,7 @@ const HealthCenter = () => {
             >
             {UbsData.ubs.map((ubs, index) => (
                 <Button 
-                    key={index} 
+                    key={ubs.name} 
                     onClick={() => handleLocationChange(ubs.location)}
                     color="secondary.500"
                     p="1rem"

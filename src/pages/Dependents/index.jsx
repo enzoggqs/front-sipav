@@ -219,7 +219,7 @@ const Dependents = () => {
       >
         {user?.dependents?.length > 0 ? (user?.dependents?.map((dependent, index) => (
           <CustomBox
-            key={index}
+            key={dependent.id}
             text={dependent.name}
             firstImage={
               <BiSolidEdit

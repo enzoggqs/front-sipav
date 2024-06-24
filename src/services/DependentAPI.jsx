@@ -13,7 +13,6 @@ const DependentAPI = () => {
             const response = await api.get(`/user/${userId}`);
     
             console.log(response)
-            // const responseData = await response.json();
     
             return response;
         } catch (error) {

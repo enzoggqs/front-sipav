@@ -39,14 +39,13 @@ const Home = () => {
   const initialRef = useRef();
   const finalRef = useRef();
   const [diseases, setDiseases] = useState([])
-  const [isLoading, setIsLoading] = useState(true);
   const [isOpenModal, setIsOpenModal] = React.useState(false);
   const [vaccinationData, setVaccinationData] = useState(null);
   const [isOpenAddDiseaseModal, setIsOpenAddDiseaseModal] = useState(false);
   const [symptomInput, setSymptomInput] = useState("");
   const [symptoms, setSymptoms] = useState([]);
 
-  const { isAuthenticated, userType } = useAuth();
+  const { isAuthenticated } = useAuth();
   const { getAllDiseases, getDiseaseVaccinationPercentage, createDisease } = DiseaseAPI();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("@sipavUser"));
@@ -102,10 +101,7 @@ const Home = () => {
         setDiseases(diseasesData.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
-      } finally {
-        setIsLoading(false); // Set loading to false after data fetching
       }
-
     }
     fetchData();
   }, []);
@@ -273,7 +269,7 @@ const Home = () => {
       >
         {sortedDiseases?.map((disease, index) => (
           <CustomBox
-            key={index}
+            key={disease?.id}
             text={disease?.name}
             firstImage={
               <GoArrowRight
@@ -476,7 +472,7 @@ const Home = () => {
                           {symptoms.map((symptom, index) => (
                             <Tag
                               size="md"
-                              key={index}
+                              key={symptom}
                               borderRadius="full"
                               variant="solid"
                               colorScheme="teal"
