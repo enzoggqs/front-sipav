@@ -173,24 +173,26 @@ const Disease = () => {
   };
 
   const renderIntervalBetweenDoses = () => {
-    if (currentVaccine?.length > 0) {
-      const monthsBetweenDoses = currentVaccine[0]?.months_between_doses.trim();
-  
-      if (monthsBetweenDoses !== "") {
-        if (monthsBetweenDoses >= 12) {
-          const years = monthsBetweenDoses / 12;
-          return `${years} ${years > 1 ? "anos" : "ano"}`;
-        } else {
-          return `${monthsBetweenDoses} ${monthsBetweenDoses > 1 ? "meses" : "mês"}`;
-        }
-      } else {
-        return "-";
-      }
-    } else {
+    if (currentVaccine?.length === 0) {
       return "Indefinido";
     }
+  
+    const monthsBetweenDoses = currentVaccine[0]?.months_between_doses.trim();
+  
+    if (monthsBetweenDoses === "") {
+      return "-";
+    }
+  
+    const interval = parseInt(monthsBetweenDoses);
+  
+    if (interval >= 12) {
+      const years = interval / 12;
+      return `${years} ${years > 1 ? "anos" : "ano"}`;
+    } else {
+      return `${interval} ${interval > 1 ? "meses" : "mês"}`;
+    }
   };
-
+  
   const renderLoading = () => (
     <Flex width="100%" h="full" flexDir="column" alignItems="center" justifyContent="center">
       <Spinner size="xl" color="white" />
