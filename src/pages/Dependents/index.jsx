@@ -40,7 +40,7 @@ const Dependents = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
     }, 1000);
-    
+
     if (!userData) {
       navigate('/login');
       return;
@@ -149,7 +149,7 @@ const Dependents = () => {
     }
   };
 
-  if(!user){
+  if (!user) {
     return (
       <Flex
         width="100%"
@@ -318,109 +318,109 @@ const Dependents = () => {
                     alignItems="center"
                   >
                     <Flex
-                  height="50%"
-                  width="70%"
-                  flexDirection="column"
-                  alignItems="flex-start"
-                  justifyContent="flex-start"
-                  mt="1rem"
-                  overflowY="auto"
-                  maxH="450px"
-                  marginBottom="2rem"
-                  px={2}
-                  sx={{
-                    "&::-webkit-scrollbar": {
-                      marginLeft: "1rem",
-                      width: "4px",
-                    },
-                    "&::-webkit-scrollbar-track": {
-                      background: "#f1f1f1",
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                      background: "#088395",
-                      borderRadius: "4px",
-                    },
-                    "&::-webkit-scrollbar-thumb:hover": {
-                      background: "#0A4D68",
-                    },
-                  }}
-                >
-                  <CustomInput
-                    label="Nome"
-                    icon={<BiUserCircle className='custom-icon' />}
-                    name="name"
-                    type="text"
-                    placeholder="Digite seu nome completo"
-                    height={'54px'}
-                    borderWidth=".2rem"
-                    borderRadius="30px"
-                    touched={touched}
-                    errors={errors}
-                    data-testid="name-input"
-                  />
+                      height="50%"
+                      width="70%"
+                      flexDirection="column"
+                      alignItems="flex-start"
+                      justifyContent="flex-start"
+                      mt="1rem"
+                      overflowY="auto"
+                      maxH="450px"
+                      marginBottom="2rem"
+                      px={2}
+                      sx={{
+                        "&::-webkit-scrollbar": {
+                          marginLeft: "1rem",
+                          width: "4px",
+                        },
+                        "&::-webkit-scrollbar-track": {
+                          background: "#f1f1f1",
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                          background: "#088395",
+                          borderRadius: "4px",
+                        },
+                        "&::-webkit-scrollbar-thumb:hover": {
+                          background: "#0A4D68",
+                        },
+                      }}
+                    >
+                      <CustomInput
+                        label="Nome"
+                        icon={<BiUserCircle className='custom-icon' />}
+                        name="name"
+                        type="text"
+                        placeholder="Digite seu nome completo"
+                        height={'54px'}
+                        borderWidth=".2rem"
+                        borderRadius="30px"
+                        touched={touched}
+                        errors={errors}
+                        data-testid="name-input"
+                      />
 
-                  <CustomInput
-                    label="CPF"
-                    icon={<BiNews color='gray.500' className='custom-icon' />}
-                    name="cpf"
-                    type="text"
-                    placeholder="Digite CPF para cadastro"
-                    height={'54px'}
-                    borderWidth=".2rem"
-                    borderRadius="30px"
-                    touched={touched}
-                    errors={errors}
-                    data-testid="cpf-input"
-                  />
+                      <CustomInput
+                        label="CPF"
+                        icon={<BiNews color='gray.500' className='custom-icon' />}
+                        name="cpf"
+                        type="text"
+                        placeholder="Digite CPF para cadastro"
+                        height={'54px'}
+                        borderWidth=".2rem"
+                        borderRadius="30px"
+                        touched={touched}
+                        errors={errors}
+                        data-testid="cpf-input"
+                      />
 
-                  <CustomInput
-                    label="Data de Nascimento"
-                    icon={<CalendarIcon className='custom-icon' color='gray.500' />}
-                    name="birthdate"
-                    type="date"
-                    placeholder="Selecione sua data de nascimento"
-                    height={'54px'}
-                    borderWidth=".2rem"
-                    borderRadius="30px"
-                    touched={touched}
-                    errors={errors}
-                    data-testid="birthdate-input"
-                  />
+                      <CustomInput
+                        label="Data de Nascimento"
+                        icon={<CalendarIcon className='custom-icon' color='gray.500' />}
+                        name="birthdate"
+                        type="date"
+                        placeholder="Selecione sua data de nascimento"
+                        height={'54px'}
+                        borderWidth=".2rem"
+                        borderRadius="30px"
+                        touched={touched}
+                        errors={errors}
+                        data-testid="birthdate-input"
+                      />
 
-                </Flex>
-                <Button
-                  type="submit"
-                  h="3rem"
-                  w="10rem"
-                  borderRadius="30px"
-                  borderColor="primary.600"
-                  borderWidth=".2rem"
-                  isDisabled={!isValid || !dirty}
-                  color="primary.600"
-                  variant="solid"
-                  marginTop="1rem"
-                  backgroundColor="transparent"
-                  transition="background-color 0.3s, color 0.3s"
-                  _hover={(isValid && dirty) && {
-                    backgroundColor: "primary.600",
-                    color: "#F0F1F3",
-                  }}
-                  mb="1rem"
-                  fontSize={["md", "xl", "xl", "xl"]}
-                >
-                  <Tooltip
-                    label="Você precisa alterar alguma informação"
-                    placement="top"
-                    hasArrow
-                    isOpen={dirty ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
-                  >
-                    Salvar
-                  </Tooltip>
-                </Button>
+                    </Flex>
+                    <Button
+                      type="submit"
+                      h="3rem"
+                      w="10rem"
+                      borderRadius="30px"
+                      borderColor="primary.600"
+                      borderWidth=".2rem"
+                      isDisabled={!isValid || !dirty}
+                      color="primary.600"
+                      variant="solid"
+                      marginTop="1rem"
+                      backgroundColor="transparent"
+                      transition="background-color 0.3s, color 0.3s"
+                      _hover={(isValid && dirty) && {
+                        backgroundColor: "primary.600",
+                        color: "#F0F1F3",
+                      }}
+                      mb="1rem"
+                      fontSize={["md", "xl", "xl", "xl"]}
+                    >
+                      <Tooltip
+                        label="Você precisa alterar alguma informação"
+                        placement="top"
+                        hasArrow
+                        isOpen={dirty ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
+                      >
+                        Salvar
+                      </Tooltip>
+                    </Button>
                   </Flex>
-            )}
-                  </Formik>
-          </Flex>
+                )}
+              </Formik>
+            </Flex>
           </VStack>
         </Flex>
       </CustomModal>
@@ -453,119 +453,119 @@ const Dependents = () => {
             paddingX="2rem"
           >
             <Flex alignItems="flex-start">
-            <Formik
-            initialValues={initialValuesAdd}
-            validationSchema={validationSchema}
-            onSubmit={(values) => addDependent(values)}
-          >
-            {({ handleSubmit, errors, touched, isValid, dirty }) => (
-              <Flex
-              as={Form}
-              width="100%"
-              onSubmit={handleSubmit}
-              flexDirection="column"
-              alignItems="center"
-            >
-              <Flex
-                height="50%"
-                width="70%"
-                flexDirection="column"
-                alignItems="flex-start"
-                justifyContent="flex-start"
-                mt="1rem"
-                overflowY="auto"
-                maxH="450px"
-                marginBottom="2rem"
-                px={2}
-                sx={{
-                  "&::-webkit-scrollbar": {
-                    marginLeft: "1rem",
-                    width: "4px",
-                  },
-                  "&::-webkit-scrollbar-track": {
-                    background: "#f1f1f1",
-                  },
-                  "&::-webkit-scrollbar-thumb": {
-                    background: "#088395",
-                    borderRadius: "4px",
-                  },
-                  "&::-webkit-scrollbar-thumb:hover": {
-                    background: "#0A4D68",
-                  },
-                }}
+              <Formik
+                initialValues={initialValuesAdd}
+                validationSchema={validationSchema}
+                onSubmit={(values) => addDependent(values)}
               >
-                <CustomInput
-                  label="Nome"
-                  icon={<BiUserCircle className='custom-icon' />}
-                  name="name"
-                  type="text"
-                  placeholder="Digite seu nome completo"
-                  height={'54px'}
-                  borderWidth=".2rem"
-                  borderRadius="30px"
-                  touched={touched}
-                  errors={errors}
-                />
+                {({ handleSubmit, errors, touched, isValid, dirty }) => (
+                  <Flex
+                    as={Form}
+                    width="100%"
+                    onSubmit={handleSubmit}
+                    flexDirection="column"
+                    alignItems="center"
+                  >
+                    <Flex
+                      height="50%"
+                      width="70%"
+                      flexDirection="column"
+                      alignItems="flex-start"
+                      justifyContent="flex-start"
+                      mt="1rem"
+                      overflowY="auto"
+                      maxH="450px"
+                      marginBottom="2rem"
+                      px={2}
+                      sx={{
+                        "&::-webkit-scrollbar": {
+                          marginLeft: "1rem",
+                          width: "4px",
+                        },
+                        "&::-webkit-scrollbar-track": {
+                          background: "#f1f1f1",
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                          background: "#088395",
+                          borderRadius: "4px",
+                        },
+                        "&::-webkit-scrollbar-thumb:hover": {
+                          background: "#0A4D68",
+                        },
+                      }}
+                    >
+                      <CustomInput
+                        label="Nome"
+                        icon={<BiUserCircle className='custom-icon' />}
+                        name="name"
+                        type="text"
+                        placeholder="Digite seu nome completo"
+                        height={'54px'}
+                        borderWidth=".2rem"
+                        borderRadius="30px"
+                        touched={touched}
+                        errors={errors}
+                      />
 
-                <CustomInput
-                  label="CPF"
-                  icon={<BiNews color='gray.500' className='custom-icon' />}
-                  name="cpf"
-                  type="text"
-                  placeholder="Digite CPF para cadastro"
-                  height={'54px'}
-                  borderWidth=".2rem"
-                  borderRadius="30px"
-                  touched={touched}
-                  errors={errors}
-                />
+                      <CustomInput
+                        label="CPF"
+                        icon={<BiNews color='gray.500' className='custom-icon' />}
+                        name="cpf"
+                        type="text"
+                        placeholder="Digite CPF para cadastro"
+                        height={'54px'}
+                        borderWidth=".2rem"
+                        borderRadius="30px"
+                        touched={touched}
+                        errors={errors}
+                      />
 
-                <CustomInput
-                  label="Data de Nascimento"
-                  icon={<CalendarIcon className='custom-icon' color='gray.500' />}
-                  name="birthdate"
-                  type="date"
-                  placeholder="Selecione sua data de nascimento"
-                  height={'54px'}
-                  borderWidth=".2rem"
-                  borderRadius="30px"
-                  touched={touched}
-                  errors={errors}
-                />
+                      <CustomInput
+                        label="Data de Nascimento"
+                        icon={<CalendarIcon className='custom-icon' color='gray.500' />}
+                        name="birthdate"
+                        type="date"
+                        placeholder="Selecione sua data de nascimento"
+                        height={'54px'}
+                        borderWidth=".2rem"
+                        borderRadius="30px"
+                        touched={touched}
+                        errors={errors}
+                      />
 
-              </Flex>
-              <Button
-                  type="submit"
-                  h="3rem"
-                  w="10rem"
-                  borderRadius="30px"
-                  borderColor="primary.600"
-                  borderWidth=".2rem"
-                  isDisabled={!isValid || !dirty}
-                  color="primary.600"
-                  variant="solid"
-                  marginTop="1rem"
-                  backgroundColor="transparent"
-                  transition="background-color 0.3s, color 0.3s"
-                  _hover={(isValid && dirty) && {
-                    backgroundColor: "primary.600",
-                    color: "#F0F1F3",
-                  }}
-                  mb="1rem"
-                  fontSize={["md", "xl", "xl", "xl"]}
-                >
-                <Tooltip
-                  label="Você precisa alterar alguma informação"
-                  placement="top"
-                  hasArrow
-                  isOpen={dirty ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
-                >
-                  Salvar
-                </Tooltip>
-              </Button>
-            </Flex>
-            )}
-            </Formik>
+                    </Flex>
+                    <Button
+                      type="submit"
+                      h="3rem"
+                      w="10rem"
+                      borderRadius="30px"
+                      borderColor="primary.600"
+                      borderWidth=".2rem"
+                      isDisabled={!isValid || !dirty}
+                      color="primary.600"
+                      variant="solid"
+                      marginTop="1rem"
+                      backgroundColor="transparent"
+                      transition="background-color 0.3s, color 0.3s"
+                      _hover={(isValid && dirty) && {
+                        backgroundColor: "primary.600",
+                        color: "#F0F1F3",
+                      }}
+                      mb="1rem"
+                      fontSize={["md", "xl", "xl", "xl"]}
+                    >
+                      <Tooltip
+                        label="Você precisa alterar alguma informação"
+                        placement="top"
+                        hasArrow
+                        isOpen={dirty ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
+                      >
+                        Salvar
+                      </Tooltip>
+                    </Button>
+                  </Flex>
+                )}
+              </Formik>
             </Flex>
           </VStack>
         </Flex>

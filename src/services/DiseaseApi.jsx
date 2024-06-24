@@ -46,7 +46,7 @@ const DiseaseAPI = () => {
                 throw new Error('Authorization token not found');
             }
 
-            if(userType !== 1) {
+            if(userType !== "ADMIN") {
                 throw new Error('User not permited');
             }
 
