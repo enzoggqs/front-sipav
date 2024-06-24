@@ -16,20 +16,7 @@ const Disease = () => {
   const navigate = useNavigate();
   const { diseaseId, userId } = useParams();
   const { createVaccination } = VaccinationAPI();
-
   const userData = JSON.parse(localStorage.getItem("@sipavUser"));
-
-  const initialValuesAdd = {
-    date: ''
-  };
-
-  const validationSchema = Yup.object({
-    date: Yup.string()
-      .required("O campo data é obrigatório."),
-  });
-
-  const { getDiseaseAndVaccine } = DiseaseAPI();
-
   const [currentDisease, setCurrentDisease] = useState();
   const [currentVaccine, setCurrentVaccine] = useState([]);
   const [user, setUser] = useState([])
@@ -40,58 +27,68 @@ const Disease = () => {
   const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);
   const [isOpenHistoryModal, setIsOpenHistoryModal] = React.useState(false);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setLoading(false); // Set loading to false after 1 second
-    }, 1000);
+  const initialValuesAdd = {
+    date: ''
+  };
+  const validationSchema = Yup.object({
+    date: Yup.string()
+      .required("O campo data é obrigatório."),
+  });
+
+  const { getDiseaseAndVaccine } = DiseaseAPI();
+
+    useEffect(() => {
+    const timeoutId = setTimeout(() => setLoading(false), 1000);
 
     if (!userData) {
       navigate('/login');
       return;
     }
 
-    const fetchDisease = async () => {
-      try {
-        const response = await getDiseaseAndVaccine(diseaseId, userId);
-        setCurrentDisease(response?.data?.disease);
-        setCurrentVaccine(response?.data?.vaccine);
-        setCurrentVaccination(response?.data?.vaccination);
-      } catch (error) {
-        console.error('Error fetching disease:', error);
-      }
-    };
-
-    async function fetchResponsibleData() {
-      try {
-        const response = await api.get(`/user/${userData.id}`);
-        setUser(response.data);
-      } catch (error) {
-        console.error('Erro ao buscar dados do usuário:', error);
-      }
-    }
-
-    async function fetchCurrentUserData() {
-      try {
-        const response = await api.get(`/user/${userId}`);
-        setCurrentUser(response.data);
-      } catch (error) {
-        console.error('Erro ao buscar dados do usuário:', error);
-      }
-    }
-
-    fetchDisease();
-    fetchResponsibleData();
-    fetchCurrentUserData()
+    fetchInitialData();
 
     return () => clearTimeout(timeoutId);
-  }, [selectedUserId])
+  }, [selectedUserId]);
 
-  async function addVaccination(data) {
+  const fetchInitialData = async () => {
+    await Promise.all([fetchDisease(), fetchResponsibleData(), fetchCurrentUserData()]);
+  };
+
+  const fetchDisease = async () => {
+    try {
+      const response = await getDiseaseAndVaccine(diseaseId, userId);
+      setCurrentDisease(response?.data?.disease);
+      setCurrentVaccine(response?.data?.vaccine);
+      setCurrentVaccination(response?.data?.vaccination);
+    } catch (error) {
+      console.error('Error fetching disease:', error);
+    }
+  };
+
+  const fetchResponsibleData = async () => {
+    try {
+      const response = await api.get(`/user/${userData.id}`);
+      setUser(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar dados do usuário:', error);
+    }
+  };
+
+  const fetchCurrentUserData = async () => {
+    try {
+      const response = await api.get(`/user/${userId}`);
+      setCurrentUser(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar dados do usuário:', error);
+    }
+  };
+
+  const addVaccination = async (data) => {
     const vaccination = {
       ...data,
       vaccineId: Number(currentVaccine[0].id),
-      userId: Number(selectedUserId)
-    }
+      userId: Number(selectedUserId),
+    };
 
     try {
       await createVaccination(vaccination);
@@ -103,8 +100,7 @@ const Disease = () => {
 
   const handleUserChange = (event) => {
     const selectedUserId = event.target.value;
-
-    setLoading(true)
+    setLoading(true);
     setSelectedUserId(selectedUserId);
 
     if (user?.id === Number(selectedUserId)) {
@@ -113,12 +109,12 @@ const Disease = () => {
       return;
     }
 
-    const selectedDependent = user?.dependents?.find(dependent => dependent.id === Number(selectedUserId));
+    const selectedDependent = user?.dependents?.find((dependent) => dependent.id === Number(selectedUserId));
     if (selectedDependent) {
       setCurrentUser(selectedDependent);
       navigate(`/disease/${diseaseId}/user/${selectedDependent.id}`);
     } else {
-      console.log("Usuário não encontrado");
+      console.log('Usuário não encontrado');
     }
   };
 
@@ -176,22 +172,32 @@ const Disease = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <Flex
-        width="100%"
-        h="full"
-        flexDir="column"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Spinner size='xl' color="white" />
-      </Flex>
+  const renderIntervalBetweenDoses = () => {
+    if (currentVaccine?.length > 0) {
+      const monthsBetweenDoses = currentVaccine[0]?.months_between_doses.trim();
+  
+      if (monthsBetweenDoses !== "") {
+        if (monthsBetweenDoses >= 12) {
+          const years = monthsBetweenDoses / 12;
+          return `${years} ${years > 1 ? "anos" : "ano"}`;
+        } else {
+          return `${monthsBetweenDoses} ${monthsBetweenDoses > 1 ? "meses" : "mês"}`;
+        }
+      } else {
+        return "-";
+      }
+    } else {
+      return "Indefinido";
+    }
+  };
 
-    )
-  }
+  const renderLoading = () => (
+    <Flex width="100%" h="full" flexDir="column" alignItems="center" justifyContent="center">
+      <Spinner size="xl" color="white" />
+    </Flex>
+  );
 
-  return (
+  return loading ? renderLoading() : (
     <Flex
       width="100%"
       h="full"
@@ -316,28 +322,7 @@ const Disease = () => {
                     },
                   }}
                 >
-                  {currentVaccine?.length ? (
-                    <>
-                      {currentVaccine[0]?.months_between_doses.trim() !== "" ? (
-                        <>
-                          {currentVaccine[0]?.months_between_doses >= 12 ? (
-                            <>
-                              {Number(currentVaccine[0]?.months_between_doses) / 12}{" "}
-                              {currentVaccine[0]?.months_between_doses > 12 ? "anos" : "ano"}
-                            </>
-                          ) : (
-                            <>
-                              {currentVaccine[0]?.months_between_doses}{" "}
-                              {currentVaccine[0]?.months_between_doses > 1 ? "meses" : "mês"}
-                            </>
-                          )}
-
-                        </>
-                      ) : ("-")}
-                    </>
-                  ) : (
-                    "Indefinido"
-                  )}
+                  {renderIntervalBetweenDoses()}
                 </Text>
               </Flex>
               <Flex alignItems="flex-start" flexDir={["column", "column", "row", "row"]}>
