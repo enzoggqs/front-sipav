@@ -2,6 +2,26 @@ import { toast } from 'react-toastify';
 import api from '../services/Api'
 
 const VaccinationAPI = () => {
+    const getAllVaccines = async () => {
+        try {
+            const token = localStorage.getItem('@sipavAccessToken');
+
+            if (!token) {
+                throw new Error('Authorization token not found');
+            }
+
+            const response = await api.get(`/vaccine`);
+
+            console.log(response)
+
+            return response
+        } catch (error) {
+            toast.error(error.response.data);
+
+            throw error;
+        }
+    }
+
     const getAllVaccinations = async (userId, vaccineId) => {
         try {
             const token = localStorage.getItem('@sipavAccessToken');
@@ -11,10 +31,10 @@ const VaccinationAPI = () => {
             }
 
             const response = await api.get(`/vaccination/${userId}/${vaccineId}`);
-    
+
             console.log(response)
             // const responseData = await response.json();
-    
+
             return response;
         } catch (error) {
             toast.error(error.response.data);
@@ -22,8 +42,8 @@ const VaccinationAPI = () => {
             throw error;
         }
     };
-    
-    async function createVaccination (data) {
+
+    async function createVaccination(data) {
         console.log(data)
 
         data.date = new Date(data.date).toISOString();
@@ -34,7 +54,7 @@ const VaccinationAPI = () => {
             if (!token) {
                 throw new Error('Authorization token not found');
             }
-            
+
             console.log('passou aq')
             await api.post('vaccination/', data);
 
@@ -46,15 +66,15 @@ const VaccinationAPI = () => {
         }
     };
 
-    async function deleteVaccination (id) {
+    async function deleteVaccination(id) {
         console.log(id)
         try {
             const token = localStorage.getItem('@sipavAccessToken');
 
             if (!token) {
                 throw new Error('Authorization token not found');
-            }    
-    
+            }
+
             await api.delete(`/vaccination/${id}`);
 
             return
@@ -65,7 +85,7 @@ const VaccinationAPI = () => {
         }
     };
 
-    return { getAllVaccinations, createVaccination, deleteVaccination }
+    return { getAllVaccinations, createVaccination, deleteVaccination, getAllVaccines }
 }
 
 export default VaccinationAPI
