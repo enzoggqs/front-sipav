@@ -19,6 +19,23 @@ const DiseaseAPI = () => {
         }
     };
 
+    const createDisease = async (data) => {
+        try {
+            const token = localStorage.getItem('@sipavAccessToken');
+
+            if (!token) {
+                throw new Error('Authorization token not found');
+            }
+
+            const response = await api.post(`/disease`, data);
+
+            return;
+        } catch (error) {
+            toast.error(error.response?.data);
+            throw error;
+        }
+    };
+
     const getDiseaseAndVaccine = async (id, userId) => {
         try {
             const token = localStorage.getItem('@sipavAccessToken');
@@ -60,7 +77,7 @@ const DiseaseAPI = () => {
         }
     }
 
-    return { getAllDiseases, getDiseaseAndVaccine, getDiseaseVaccinationPercentage }
+    return { getAllDiseases, getDiseaseAndVaccine, getDiseaseVaccinationPercentage, createDisease }
 }
 
 export default DiseaseAPI
