@@ -15,7 +15,7 @@ import api from '../../services/Api';
 import { useAuth } from '../../context/AuthContext';
 
 const Profile = () => {
-  const { isAuthenticated, update } = useAuth();
+  const { update } = useAuth();
 
   const navigate = useNavigate();
 
@@ -25,11 +25,12 @@ const Profile = () => {
   const userData = JSON.parse(localStorage.getItem("@sipavUser"));
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-      return
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false); // Set loading to false after 1 second
+    }, 1000);
+    if (!userData) {
+      navigate("/login")
     }
-
     async function fetchUserData() {
       try {
         const response = await api.get(`/user/${userData?.id}`);
@@ -41,7 +42,8 @@ const Profile = () => {
 
     fetchUserData();
 
-  }, [isAuthenticated, navigate, userData?.id]);
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   if (isLoading) {
     return (
