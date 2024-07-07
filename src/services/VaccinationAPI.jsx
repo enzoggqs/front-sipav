@@ -22,6 +22,27 @@ const VaccinationAPI = () => {
         }
     }
 
+    async function createVaccine(data) {
+        console.log(data)
+
+        try {
+            const token = localStorage.getItem('@sipavAccessToken');
+
+            if (!token) {
+                throw new Error('Authorization token not found');
+            }
+
+            console.log('passou aq')
+            await api.post('vaccine/', data);
+
+
+            return
+        } catch (error) {
+            toast.error(error.response.data);
+            throw error;
+        }
+    };
+
     const getAllVaccinations = async (userId, vaccineId) => {
         try {
             const token = localStorage.getItem('@sipavAccessToken');
@@ -84,7 +105,7 @@ const VaccinationAPI = () => {
         }
     };
 
-    return { getAllVaccinations, createVaccination, deleteVaccination, getAllVaccines }
+    return { getAllVaccinations, createVaccine, createVaccination, deleteVaccination, getAllVaccines }
 }
 
 export default VaccinationAPI

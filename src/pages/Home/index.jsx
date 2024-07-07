@@ -1,22 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {
-  Flex,
-  Text,
-  Select,
-  Spinner,
-  ModalBody,
-  Button,
-  VStack,
-  Tooltip as Tooltip2,
-  HStack,
-  Input,
-  FormLabel,
-  Tag,
-  TagLabel,
-  TagCloseButton,
-  InputGroup,
-  InputLeftElement
-} from '@chakra-ui/react'
+import { Flex, Text, Spinner, ModalBody, Button, VStack, Tooltip as Tooltip2, HStack, Input, FormLabel, Tag, TagLabel, TagCloseButton, InputGroup, InputLeftElement, Select } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import { GoArrowRight } from 'react-icons/go'
 import { Pie } from 'react-chartjs-2';
@@ -25,13 +8,12 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import DiseaseAPI from '../../services/DiseaseApi.jsx';
 import CustomBox from '../../components/CustomBox/index.jsx';
 import { useNavigate } from 'react-router-dom';
-import api from '../../services/Api';
 import { useAuth } from '../../context/AuthContext.jsx';
 import CustomModal from '../../components/CustomModal/index.jsx';
 import * as Yup from "yup";
 import CustomInput from '../../components/CustomInput/index.jsx';
-import { BiNews, BiUserCircle } from 'react-icons/bi';
-import { CalendarIcon } from '@chakra-ui/icons';
+import { BiNews } from 'react-icons/bi';
+import VaccinationAPI from '../../services/VaccinationAPI.jsx';
 
 Chart.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
@@ -42,11 +24,17 @@ const Home = () => {
   const [isOpenModal, setIsOpenModal] = React.useState(false);
   const [vaccinationData, setVaccinationData] = useState(null);
   const [isOpenAddDiseaseModal, setIsOpenAddDiseaseModal] = useState(false);
+  const [isOpenAddVaccineModal, setIsOpenAddVaccineModal] = useState(false);
   const [symptomInput, setSymptomInput] = useState("");
   const [symptoms, setSymptoms] = useState([]);
+  const [contraindicationInput, setContraindicationInput] = useState("");
+  const [contraindications, setContraindications] = useState([]);
+  const [disabledMonthsBetweenDoses, setDisabledMonthsBetweenDoses] = useState(false);
+  const [selectedDiseases, setSelectedDiseases] = useState([]);
 
   const { isAuthenticated } = useAuth();
   const { getAllDiseases, getDiseaseVaccinationPercentage, createDisease } = DiseaseAPI();
+  const { getAllVaccines, createVaccine } = VaccinationAPI();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("@sipavUser"));
 
@@ -57,16 +45,29 @@ const Home = () => {
     treatment: ''
   };
 
-  const validationSchema = Yup.object({
+  const initialValuesVaccine = {
+    name: '',
+    doses_required: '',
+    months_between_doses: '',
+    contraindications: [],
+    diseases: []
+  };
+
+  const diseaseValidationSchema = Yup.object({
     name: Yup.string().required("O campo nome é obrigatório."),
     disease_info: Yup.string().required("O campo informações é obrigatório."),
     symptoms: Yup.array().required("O campo sintomas é obrigatório."),
     treatment: Yup.string().required("O campo tratamento é obrigatório."),
   });
 
+  const vaccineValidationSchema = Yup.object({
+    name: Yup.string().required("O campo nome é obrigatório."),
+    doses_required: Yup.number().required("O campo número de doses é obrigatório."),
+    months_between_doses: Yup.number().optional(),
+    diseases: Yup.array().required("O campo doenças é obrigatório."),
+  });
+
   const handleAddSymptom = () => {
-    console.log(symptoms)
-    console.log([...symptoms, symptomInput])
     if (symptomInput.trim() !== "") {
       setSymptoms([...symptoms, symptomInput]);
       setSymptomInput("");
@@ -77,11 +78,47 @@ const Home = () => {
     setSymptoms(symptoms.filter((_, i) => i !== index));
   };
 
+  const handleAddContraindication = () => {
+    console.log([...contraindications, contraindicationInput])
+    if (contraindicationInput.trim() !== "") {
+      setContraindications([...contraindications, contraindicationInput]);
+      setContraindicationInput("");
+    }
+  };
+
+  const handleRemoveContraindication = (index) => {
+    setContraindications(contraindications.filter((_, i) => i !== index));
+  };
+
+  const handleDiseaseSelect = (disease) => {
+    if (selectedDiseases.includes(disease)) {
+      setSelectedDiseases(selectedDiseases.filter(d => d !== disease));
+    } else {
+      setSelectedDiseases([...selectedDiseases, disease]);
+    }
+  };
+
   async function addDisease(values) {
     const createdDisease = { ...values, symptoms };
     try {
-      console.log(createdDisease)
       await createDisease(createdDisease);
+      navigate(0);
+    } catch (error) {
+      console.error('Failed to create disease:', error.message);
+    }
+  };
+
+  async function addVaccine(values) {
+    const createdVaccine = {
+      name: values.name,
+      months_between_doses: String(values.months_between_doses),
+      doses_required: String(values.doses_required),
+      diseases: selectedDiseases.map(disease => disease.id),
+      contraindications: contraindications
+    }
+    try {
+      console.log(createdVaccine)
+      await createVaccine(createdVaccine);
       navigate(0);
     } catch (error) {
       console.error('Failed to create disease:', error.message);
@@ -130,6 +167,17 @@ const Home = () => {
     setIsOpenAddDiseaseModal(false);
     setSymptomInput("");
     setSymptoms([]);
+  };
+
+  const handleOpenAddVaccineModal = () => {
+    setIsOpenAddVaccineModal(true);
+  };
+
+  const handleCloseAddVaccineModal = () => {
+    setIsOpenAddVaccineModal(false);
+    setContraindicationInput("");
+    setContraindications([]);
+    setSelectedDiseases([]);
   };
 
   const handleOpenModal = async (diseaseId) => {
@@ -267,7 +315,7 @@ const Home = () => {
           },
         }}
       >
-        {sortedDiseases?.map((disease, index) => (
+        {sortedDiseases?.map((disease) => (
           <CustomBox
             key={disease?.id}
             text={disease?.name}
@@ -284,27 +332,50 @@ const Home = () => {
         ))}
       </Flex>
       {(user?.type === "ADMIN") && (
-        <Button
-          type="submit"
-          p="1rem"
-          mb="2rem"
-          variant="solid"
-          borderRadius="30px"
-          borderColor="primary.600"
-          borderWidth=".2rem"
-          color="primary.600"
-          backgroundColor="transparent" // Defina a cor de fundo desejada
-          transition="background-color 0.3s, color 0.3s" // Adicione uma transição suave
-          _hover={{
-            backgroundColor: "primary.600",
-            color: "#F0F1F3",
-          }}
-          fontSize="md"
-          marginTop="1rem"
-          onClick={handleOpenAddDiseaseModal}
-        >
-          Adicionar Doença
-        </Button>
+        <Flex gap={[0, 2, 2, 2]} flexDir={["column", "row", "row", "row"]}>
+          <Button
+            type="submit"
+            p="1rem"
+            mb={["0rem, 2rem, 2rem, 2rem"]}
+            variant="solid"
+            borderRadius="30px"
+            borderColor="primary.600"
+            borderWidth=".2rem"
+            color="primary.600"
+            backgroundColor="transparent" // Defina a cor de fundo desejada
+            transition="background-color 0.3s, color 0.3s" // Adicione uma transição suave
+            _hover={{
+              backgroundColor: "primary.600",
+              color: "#F0F1F3",
+            }}
+            fontSize="md"
+            marginTop="1rem"
+            onClick={handleOpenAddDiseaseModal}
+          >
+            Adicionar Doença
+          </Button>
+          <Button
+            type="submit"
+            p="1rem"
+            mb={["0rem, 2rem, 2rem, 2rem"]}
+            variant="solid"
+            borderRadius="30px"
+            borderColor="primary.600"
+            borderWidth=".2rem"
+            color="primary.600"
+            backgroundColor="transparent" // Defina a cor de fundo desejada
+            transition="background-color 0.3s, color 0.3s" // Adicione uma transição suave
+            _hover={{
+              backgroundColor: "primary.600",
+              color: "#F0F1F3",
+            }}
+            fontSize="md"
+            marginTop="1rem"
+            onClick={handleOpenAddVaccineModal}
+          >
+            Adicionar Vacina
+          </Button>
+        </Flex>
       )}
       <CustomModal
         isOpen={isOpenModal}
@@ -365,7 +436,7 @@ const Home = () => {
               <Flex alignItems="flex-start">
                 <Formik
                   initialValues={initialValuesDisease}
-                  validationSchema={validationSchema}
+                  validationSchema={diseaseValidationSchema}
                   onSubmit={(values) => addDisease(values)}
                 >
                   {({ handleSubmit, errors, touched, isValid, dirty }) => (
@@ -524,7 +595,245 @@ const Home = () => {
                           hasArrow
                           isOpen={dirty ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
                         >
-                          Salvar
+                          Adicionar
+                        </Tooltip2>
+                      </Button>
+                    </Flex>
+                  )}
+                </Formik>
+              </Flex>
+            </VStack>
+          </Flex>
+        </ModalBody >
+      </CustomModal >
+      <CustomModal
+        isOpen={isOpenAddVaccineModal}
+        onClose={() => handleCloseAddVaccineModal()}
+        initialRef={initialRef}
+        finalRef={finalRef}
+      >
+        <ModalBody>
+          <Flex
+            width="100%"
+            flexDirection="column"
+            alignItems="center"
+            pb="2rem"
+          >
+            <Text
+              fontSize={["md", "xl", "xl", "2xl"]}
+              fontWeight="black"
+              pb=".5rem"
+              pt="2rem"
+              color="secondary.400"
+            >
+              Adicionar Vacina
+            </Text>
+            <VStack
+              spacing={4}
+              align='stretch'
+              width="100%"
+              paddingY="2rem"
+              paddingX="2rem"
+            >
+              <Flex alignItems="flex-start">
+                <Formik
+                  initialValues={initialValuesVaccine}
+                  validationSchema={vaccineValidationSchema}
+                  onSubmit={(values) => addVaccine(values)}
+                >
+                  {({ handleSubmit, errors, touched, isValid, dirty, values, handleChange, setFieldValue }) => (
+                    <Flex
+                      as={Form}
+                      width="100%"
+                      onSubmit={handleSubmit}
+                      flexDirection="column"
+                      alignItems="center"
+                    >
+                      <Flex
+                        height="50%"
+                        width="100%"
+                        flexDirection="column"
+                        alignItems="flex-start"
+                        justifyContent="flex-start"
+                        mt="1rem"
+                        overflowY="auto"
+                        maxH="450px"
+                        marginBottom="2rem"
+                        px={2}
+                        sx={{
+                          "&::-webkit-scrollbar": {
+                            marginLeft: "1rem",
+                            width: "4px",
+                          },
+                          "&::-webkit-scrollbar-track": {
+                            background: "#f1f1f1",
+                          },
+                          "&::-webkit-scrollbar-thumb": {
+                            background: "#088395",
+                            borderRadius: "4px",
+                          },
+                          "&::-webkit-scrollbar-thumb:hover": {
+                            background: "#0A4D68",
+                          },
+                        }}
+                      >
+                        <CustomInput
+                          label="Nome"
+                          icon={<BiNews className='custom-icon' />}
+                          name="name"
+                          type="text"
+                          placeholder="Digite o nome da vacina"
+                          height={'54px'}
+                          borderWidth=".2rem"
+                          borderRadius="30px"
+                          touched={touched}
+                          errors={errors}
+                          data-testid="name-input"
+                        />
+
+                        <CustomInput
+                          label="Número de doses"
+                          icon={<BiNews color='gray.500' className='custom-icon' />}
+                          name="doses_required"
+                          type="number"
+                          placeholder="Digite o número de doses da vacina"
+                          height={'54px'}
+                          borderWidth=".2rem"
+                          borderRadius="30px"
+                          touched={touched}
+                          errors={errors}
+                          data-testid="disease-input"
+                          onChange={(e) => {
+                            handleChange(e);
+                            if (e.target.value === "1") {
+                              setFieldValue('months_between_doses', "");
+                              setDisabledMonthsBetweenDoses(true);
+                            } else {
+                              setDisabledMonthsBetweenDoses(false);
+                            }
+                          }}
+                        />
+
+                        <CustomInput
+                          label="Meses entre as doses"
+                          icon={<BiNews color='gray.500' className='custom-icon' />}
+                          name="months_between_doses"
+                          type="number"
+                          placeholder="Digite o número de meses entre as doses"
+                          height={'54px'}
+                          borderWidth=".2rem"
+                          borderRadius="30px"
+                          touched={touched}
+                          errors={errors}
+                          data-testid="disease-input"
+                          disabled={disabledMonthsBetweenDoses}
+                        />
+
+                        <FormLabel
+                          fontSize={["sm", "md", "md", "md"]}
+                          color="primary.600"
+                          mt={[".1rem", ".4rem", ".5rem", ".5rem"]}
+                          fontWeight="medium"
+                        >
+                          Contraindicações
+                        </FormLabel>
+                        <HStack spacing={2} width="100%">
+                          <InputGroup>
+                            <InputLeftElement ml=".5rem" h="full" pointerEvents="none">
+                              <BiNews color='gray.500' className='custom-icon' />
+                            </InputLeftElement>
+                            <Input
+                              placeholder="Digite a contraindicação"
+                              value={contraindicationInput}
+                              onChange={(e) => setContraindicationInput(e.target.value)}
+                              borderWidth=".2rem"
+                              borderRadius="30px"
+                            />
+                          </InputGroup>
+                          <Button
+                            onClick={handleAddContraindication}
+                            borderRadius="30px"
+                            borderColor="primary.600"
+                            borderWidth=".2rem"
+                            color="primary.600"
+                            variant="solid"
+                            backgroundColor="transparent"
+                            transition="background-color 0.3s, color 0.3s"
+                            _hover={{
+                              backgroundColor: "primary.600",
+                              color: "#F0F1F3",
+                            }}
+                          >Adicionar</Button>
+                        </HStack>
+                        <Flex mt={2} flexWrap="wrap">
+                          {contraindications.map((contraindication, index) => (
+                            <Tag
+                              size="md"
+                              key={contraindication}
+                              borderRadius="full"
+                              variant="solid"
+                              colorScheme="teal"
+                              m={1}
+                            >
+                              <TagLabel>{contraindication}</TagLabel>
+                              <TagCloseButton onClick={() => handleRemoveContraindication(index)} />
+                            </Tag>
+                          ))}
+                        </Flex>
+
+                        <FormLabel
+                          fontSize={["sm", "md", "md", "md"]}
+                          color="primary.600"
+                          mt={[".1rem", ".4rem", ".5rem", ".5rem"]}
+                          fontWeight="medium"
+                        >
+                          Doenças associadas
+                        </FormLabel>
+                        <Flex wrap="wrap">
+                          {sortedDiseases.map((disease) => (
+                            <Tag
+                              key={disease.id}
+                              size="md"
+                              borderRadius="full"
+                              variant={selectedDiseases.includes(disease) ? "solid" : "outline"}
+                              colorScheme={selectedDiseases.includes(disease) ? "teal" : "gray"}
+                              m={1}
+                              onClick={() => handleDiseaseSelect(disease)}
+                              cursor="pointer"
+                            >
+                              <TagLabel>{disease.name}</TagLabel>
+                            </Tag>
+                          ))}
+                        </Flex>
+
+                      </Flex>
+                      <Button
+                        type="submit"
+                        h="3rem"
+                        w="10rem"
+                        borderRadius="30px"
+                        borderColor="primary.600"
+                        borderWidth=".2rem"
+                        color="primary.600"
+                        variant="solid"
+                        marginTop="1rem"
+                        backgroundColor="transparent"
+                        transition="background-color 0.3s, color 0.3s"
+                        _hover={(isValid && dirty) && {
+                          backgroundColor: "primary.600",
+                          color: "#F0F1F3",
+                        }}
+                        isDisabled={!isValid || !dirty || !(selectedDiseases.length > 0)}
+                        mb="1rem"
+                        fontSize={["md", "xl", "xl", "xl"]}
+                      >
+                        <Tooltip2
+                          label="Você precisa alterar alguma informação"
+                          placement="top"
+                          hasArrow
+                          isOpen={dirty ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
+                        >
+                          Adicionar
                         </Tooltip2>
                       </Button>
                     </Flex>

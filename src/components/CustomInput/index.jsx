@@ -80,6 +80,7 @@ const CustomInput = ({ icon, label, type, show, handleClick, touched, errors, ..
                 props.name == "cpf" ? ( // Remove non-digits
                 form.setFieldValue(field.name, unformattedValue)) : (
                 form.setFieldValue(field.name, e.target.value)); // Atualizar o valor do campo no Formik
+                props.onChange && props.onChange(e);
               }}
             />
             {type === "password" && (
