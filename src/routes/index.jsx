@@ -10,103 +10,119 @@ import Disease from "../pages/Disease";
 import Header from "../components/Header";
 import HealthCenter from "../pages/HealthCenter";
 import Info from "../pages/Info";
+import Vaccines from "../pages/Vaccines";
 
 const RoutesComponent = () => {
   return (
-      <Routes>
-          <Route exect path={PathRoutes.REGISTER} element={<Register />} />
-          <Route exect path={PathRoutes.LOGIN} element={<Login />} />
-          <Route exect path={PathRoutes.HOME} 
-            element={
-              <Flex
-                flexDirection="column"
-                backgroundColor="primary.500"
-                alignItems="center"
-                h={"100%"}
-                minH={"100vh"}
-                w={"100%"}
-              >
-                <Header /> 
-                <Home /> 
-              </Flex>
-            }
-          />
-          <Route exect path={PathRoutes.PROFILE} 
-            element={
-              <Flex
-                flexDirection="column"
-                backgroundColor="primary.500"
-                alignItems="center"
-                h={"100%"}
-                minH={"100vh"}
-                w={"100%"}
-              >
-                <Header />
-                <Profile /> 
-              </Flex>
-            } 
-          />
-          <Route exect path={PathRoutes.DEPENDENTS} 
-            element={
-              <Flex
-                flexDirection="column"
-                backgroundColor="primary.500"
-                alignItems="center"
-                h={"100%"}
-                w={"100%"}
-                minH={"100vh"}
-              >
-                <Header />
-                <Dependents />
-              </Flex>
-              } 
-          />
-          <Route exect path={PathRoutes.DISEASE} 
-            element={
-              <Flex
-                flexDirection="column"
-                backgroundColor="primary.500"
-                alignItems="center"
-                h={"100%"}
-                w={"100%"}
-                minH={"100vh"}
-              >
-                <Header />
-                <Disease />
-              </Flex>
-            } 
-          />
-          <Route exect path={PathRoutes.HEALTHCENTERS} 
-            element={
-              <Flex
-                flexDirection="column"
-                backgroundColor="primary.500"
-                alignItems="center"
-                h={"100%"}
-                w={"100%"}
-                minH={"100vh"}
-              >
-                <Header />
-                <HealthCenter />
-              </Flex>
-            } 
-          />
-          <Route exect path={PathRoutes.INFO} 
-            element={
-              <Flex
-                flexDirection="column"
-                backgroundColor="primary.500"
-                alignItems="center"
-                h={"100%"}
-                w={"100%"}
-                minH={"100vh"}
-              >
-                <Header />
-                <Info />
-              </Flex>
-            } 
-          />
-      </Routes>
+    <Routes>
+      <Route exect path={PathRoutes.REGISTER} element={<Register />} />
+      <Route exect path={PathRoutes.LOGIN} element={<Login />} />
+      <Route exect path={PathRoutes.HOME}
+        element={
+          <Flex
+            flexDirection="column"
+            backgroundColor="primary.500"
+            alignItems="center"
+            h={"100%"}
+            minH={"100vh"}
+            w={"100%"}
+          >
+            <Header />
+            <Home />
+          </Flex>
+        }
+      />
+      <Route exect path={PathRoutes.PROFILE}
+        element={
+          <Flex
+            flexDirection="column"
+            backgroundColor="primary.500"
+            alignItems="center"
+            h={"100%"}
+            minH={"100vh"}
+            w={"100%"}
+          >
+            <Header />
+            <Profile />
+          </Flex>
+        }
+      />
+      <Route exect path={PathRoutes.DEPENDENTS}
+        element={
+          <Flex
+            flexDirection="column"
+            backgroundColor="primary.500"
+            alignItems="center"
+            h={"100%"}
+            w={"100%"}
+            minH={"100vh"}
+          >
+            <Header />
+            <Dependents />
+          </Flex>
+        }
+      />
+      <Route exect path={PathRoutes.DISEASE}
+        element={
+          <Flex
+            flexDirection="column"
+            backgroundColor="primary.500"
+            alignItems="center"
+            h={"100%"}
+            w={"100%"}
+            minH={"100vh"}
+          >
+            <Header />
+            <Disease />
+          </Flex>
+        }
+      />
+      <Route exect path={PathRoutes.VACCINES}
+        element={
+          <Flex
+            flexDirection="column"
+            backgroundColor="primary.500"
+            alignItems="center"
+            h={"100%"}
+            minH={"100vh"}
+            w={"100%"}
+          >
+            <Header />
+            <Vaccines />
+          </Flex>
+        }
+      />
+      <Route exect path={PathRoutes.HEALTHCENTERS}
+        element={
+          <Flex
+            flexDirection="column"
+            backgroundColor="primary.500"
+            alignItems="center"
+            h={"100%"}
+            w={"100%"}
+            minH={"100vh"}
+          >
+            <Header />
+            <HealthCenter />
+          </Flex>
+        }
+      />
+      <Route exect path={PathRoutes.INFO}
+        element={
+          <Flex
+            flexDirection="column"
+            backgroundColor="primary.500"
+            alignItems="center"
+            h={"100%"}
+            w={"100%"}
+            minH={"100vh"}
+          >
+            <Header />
+            <Info />
+          </Flex>
+        }
+      />
+    </Routes>
   )
 }
 
