@@ -32,9 +32,7 @@ const VaccinationAPI = () => {
                 throw new Error('Authorization token not found');
             }
 
-            console.log('passou aq')
             await api.post('vaccine/', data);
-
 
             return
         } catch (error) {

@@ -27,6 +27,8 @@ const DiseaseAPI = () => {
                 throw new Error('Authorization token not found');
             }
 
+            await api.post('disease/', data);
+
             return;
         } catch (error) {
             toast.error(error.response?.data);
