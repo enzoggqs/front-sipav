@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
     // Verificar se o usuário está autenticado ao carregar o componente
     setIsAuthenticated(localStorage.getItem('@sipavAccessToken') !== null);
     const user = JSON.parse(localStorage.getItem('@sipavUser'));
-    console.log(user);
     if (user) {
       setUserType(user.type);
     }
