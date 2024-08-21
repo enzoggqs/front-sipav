@@ -226,7 +226,7 @@ const Register = () => {
                   }}
                 >
                   Cadastrar
-                  {!loading && (
+                  {loading && (
                     <Spinner size="sm" color="primary.600" ml=".5rem" />
                   )}
                 </Button>
