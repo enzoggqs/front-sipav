@@ -179,7 +179,11 @@ const Disease = () => {
   
     const monthsBetweenDoses = currentVaccine[0]?.months_between_doses.trim();
   
-    if (monthsBetweenDoses === "") {
+    if (
+      monthsBetweenDoses === "" | 
+      monthsBetweenDoses === undefined |
+      monthsBetweenDoses === null
+    ) {
       return "-";
     }
   

@@ -19,6 +19,7 @@ const MenuLinks = ({ isOpen }) => {
       >
         {(isAuthenticated && (userType === "ADMIN")) && (
           <>
+            <MenuItem to="/dashboards">Dashboards</MenuItem>
             <MenuItem to="/">Doenças</MenuItem>
             <MenuItem to="/vaccines">Vacinas</MenuItem>
           </>

@@ -11,6 +11,7 @@ import Header from "../components/Header";
 import HealthCenter from "../pages/HealthCenter";
 import Info from "../pages/Info";
 import Vaccines from "../pages/Vaccines";
+import Dashboards from "../pages/Dashboards";
 
 const RoutesComponent = () => {
   return (
@@ -89,6 +90,21 @@ const RoutesComponent = () => {
           >
             <Header />
             <Vaccines />
+          </Flex>
+        }
+      />
+      <Route exect path={PathRoutes.DASHBOARDS}
+        element={
+          <Flex
+            flexDirection="column"
+            backgroundColor="primary.500"
+            alignItems="center"
+            h={"100%"}
+            minH={"100vh"}
+            w={"100%"}
+          >
+            <Header />
+            <Dashboards />
           </Flex>
         }
       />
