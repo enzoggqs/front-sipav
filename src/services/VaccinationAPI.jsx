@@ -117,13 +117,39 @@ const VaccinationAPI = () => {
         }
     };
 
+    const getMonthlyVaccinationDistribution = async (diseaseId = null) => {
+        try {
+            const token = localStorage.getItem('@sipavAccessToken');
+
+            if (!token) {
+                throw new Error('Authorization token not found');
+            }
+
+            var response;
+
+            if(diseaseId){
+                response = await api.get(`/vaccination/monthly-distribution`, {
+                    params: { diseaseId }
+                });
+            } else {
+                response = await api.get(`/vaccination/monthly-distribution`)
+            }
+
+            return response.data;
+        } catch (error) {
+            toast.error(error.response.data);
+            throw error;
+        }
+    };
+
     return {
         getAllVaccinations,
         createVaccine,
         createVaccination, 
         deleteVaccination, 
         getAllVaccines,
-        getVaccinationDistribution
+        getVaccinationDistribution,
+        getMonthlyVaccinationDistribution
     }
 }
 
