@@ -142,6 +142,7 @@ const Home = () => {
 
   const renderChart = () => {
     if (!vaccinationData) return null;
+    console.log(vaccinationData)
 
     const data = {
       labels: ['Vacinados', 'Não Vacinados'],

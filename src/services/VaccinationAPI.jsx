@@ -12,8 +12,6 @@ const VaccinationAPI = () => {
 
             const response = await api.get(`/vaccine`);
 
-            console.log(response)
-
             return response
         } catch (error) {
             toast.error(error.response.data);
@@ -23,8 +21,6 @@ const VaccinationAPI = () => {
     }
 
     async function createVaccine(data) {
-        console.log(data)
-
         try {
             const token = localStorage.getItem('@sipavAccessToken');
 
@@ -51,8 +47,6 @@ const VaccinationAPI = () => {
 
             const response = await api.get(`/vaccination/${userId}/${vaccineId}`);
 
-            console.log(response)
-
             return response;
         } catch (error) {
             toast.error(error.response.data);
@@ -62,10 +56,7 @@ const VaccinationAPI = () => {
     };
 
     async function createVaccination(data) {
-        console.log(data)
-
         data.date = new Date(data.date).toISOString();
-        console.log(data)
         try {
             const token = localStorage.getItem('@sipavAccessToken');
 
@@ -73,7 +64,6 @@ const VaccinationAPI = () => {
                 throw new Error('Authorization token not found');
             }
 
-            console.log('passou aq')
             await api.post('vaccination/', data);
 
 
@@ -85,7 +75,6 @@ const VaccinationAPI = () => {
     };
 
     async function deleteVaccination(id) {
-        console.log(id)
         try {
             const token = localStorage.getItem('@sipavAccessToken');
 
@@ -103,7 +92,39 @@ const VaccinationAPI = () => {
         }
     };
 
-    return { getAllVaccinations, createVaccine, createVaccination, deleteVaccination, getAllVaccines }
+    const getVaccinationDistribution = async (diseaseId = null) => {
+        try {
+            const token = localStorage.getItem('@sipavAccessToken');
+
+            if (!token) {
+                throw new Error('Authorization token not found');
+            }
+
+            var response;
+
+            if(diseaseId){
+                response = await api.get(`/vaccination/distribution`, {
+                    params: { diseaseId }
+                });
+            } else {
+                response = await api.get(`/vaccination/distribution`)
+            }
+
+            return response.data;
+        } catch (error) {
+            toast.error(error.response.data);
+            throw error;
+        }
+    };
+
+    return {
+        getAllVaccinations,
+        createVaccine,
+        createVaccination, 
+        deleteVaccination, 
+        getAllVaccines,
+        getVaccinationDistribution
+    }
 }
 
 export default VaccinationAPI
