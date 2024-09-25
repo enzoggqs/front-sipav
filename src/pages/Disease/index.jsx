@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Form, Formik } from 'formik'
 import { CalendarIcon } from '@chakra-ui/icons'
 import { Box, Spinner, Button, Divider, Flex, Stack, ListItem, ModalBody, Select, StackDivider, Text, Tooltip, UnorderedList, VStack } from '@chakra-ui/react';
-import DiseaseAPI from '../../services/DiseaseApi';
+import DiseaseAPI from '../../services/DiseaseAPI';
 import VaccinationAPI from '../../services/VaccinationAPI';
 import CustomModal from '../../components/CustomModal';
 import * as Yup from "yup";

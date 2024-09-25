@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import api from '../services/Api'
+import api from './Api'
 
 const DiseaseAPI = () => {
     const getAllDiseases = async (userId) => {
@@ -28,6 +28,23 @@ const DiseaseAPI = () => {
             }
 
             await api.post('disease/', data);
+
+            return;
+        } catch (error) {
+            toast.error(error.response?.data);
+            throw error;
+        }
+    };
+
+    const editDisease = async (id, data) => {
+        try {
+            const token = localStorage.getItem('@sipavAccessToken');
+
+            if (!token) {
+                throw new Error('Authorization token not found');
+            }
+
+            await api.put(`disease/${id}`, data);
 
             return;
         } catch (error) {
@@ -77,7 +94,32 @@ const DiseaseAPI = () => {
         }
     }
 
-    return { getAllDiseases, getDiseaseAndVaccine, getDiseaseVaccinationPercentage, createDisease }
+    const getDiseaseById = async (id) => {
+        try {
+            const token = localStorage.getItem('@sipavAccessToken');
+
+            if (!token) {
+                throw new Error('Authorization token not found');
+            }
+
+            const response = await api.get(`/disease/${id}`);
+
+            return response;
+        }
+        catch (error) {
+            toast.error(error.response?.data);
+            throw error;
+        }
+    }
+
+    return { 
+        getAllDiseases, 
+        getDiseaseAndVaccine, 
+        getDiseaseVaccinationPercentage, 
+        createDisease,
+        getDiseaseById,
+        editDisease
+    }
 }
 
 export default DiseaseAPI

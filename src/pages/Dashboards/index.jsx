@@ -1,5 +1,5 @@
 import { Flex, Text, Select, Spinner, SimpleGrid, Grid, Box } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
@@ -15,15 +15,33 @@ const Dashboards = () => {
     const [monthlyVaccinationData, setMonthlyVaccinationData] = useState(null);
     const [diseases, setDiseases] = useState([]);
     const [selectedDisease, setSelectedDisease] = useState('');
-    const [years, setYears] = useState([]);  // Lista de anos com vacinação
+    const [years, setYears] = useState([]);
     const [selectedYear, setSelectedYear] = useState('');
 
     const user = JSON.parse(localStorage.getItem("@sipavUser"));
 
-    const { getVaccinationDistribution, getMonthlyVaccinationDistribution } = VaccinationAPI();
+    const { getVaccinationDistribution, getMonthlyVaccinationDistribution, getAllVaccinations } = VaccinationAPI();
     const { getAllDiseases, getDiseaseVaccinationPercentage } = DiseaseAPI();
 
     const sortedDiseases = diseases?.sort((a, b) => a.name.localeCompare(b.name));
+
+    const barChartRef = useRef(null);
+    const pieChartRef = useRef(null);
+    const barChartRef2 = useRef(null);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (chartRef.current) {
+                chartRef.current.resize();
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         const fetchDiseases = async () => {
@@ -35,13 +53,31 @@ const Dashboards = () => {
             }
         };
 
+        const fetchYears = async () => {
+            try {
+                const allVaccinationsData = await getAllVaccinations();
+                const vaccinationYears = allVaccinationsData.data.map(vaccine =>
+                    new Date(vaccine.date).getFullYear()
+                );
+                const uniqueYears = [...new Set(vaccinationYears)];
+
+                // Definir os anos no estado
+                setYears(uniqueYears);
+
+            } catch (error) {
+                console.error("Erro ao buscar vacinações:", error);
+            }
+        }
+
         fetchDiseases();
+        fetchYears();
     }, []);
 
     useEffect(() => {
         const fetchMonthlyVaccinationData = async () => {
             try {
-                const data = await getMonthlyVaccinationDistribution();
+                const yearNumber = selectedYear || null;
+                const data = await getMonthlyVaccinationDistribution(yearNumber);
                 setMonthlyVaccinationData(data);
             } catch (error) {
                 console.error("Erro ao buscar dados de vacinação mensal:", error);
@@ -49,7 +85,7 @@ const Dashboards = () => {
         };
 
         fetchMonthlyVaccinationData();
-    }, []);
+    }, [selectedYear]);
 
     useEffect(() => {
         const fetchVaccinationData = async () => {
@@ -89,6 +125,8 @@ const Dashboards = () => {
         };
 
         const options = {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 x: {
                     beginAtZero: true,
@@ -110,11 +148,12 @@ const Dashboards = () => {
             },
         };
 
-        return <Bar data={data} options={options} />;
+        return <Bar ref={barChartRef} data={data} options={options} />;
     };
 
     const renderPercentChart = () => {
-        if (!vaccinationData || !vaccinationData.percentage) return "Carregando";
+        if (!vaccinationData) return "Carregando";
+        if (!vaccinationData.percentage) return "Doença sem dados";
 
         const data = {
             labels: ['Vacinados', 'Não Vacinados'],
@@ -128,30 +167,49 @@ const Dashboards = () => {
         };
 
         const options = {
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     display: true,
                     position: 'top',
+                    labels: {
+                        color: '#333333', // Mudar a cor do texto da legenda
+                        font: {
+                            size: 14, // Tamanho da fonte
+                        },
+                    },
                 },
                 tooltip: {
                     enabled: true,
+                    titleColor: '#333333', // Cor do título do tooltip
+                    bodyColor: '#333333',  // Cor do corpo do tooltip
+                },
+                datalabels: {
+                    formatter: (value, context) => {
+                        return `${value.toFixed(2)}%`;
+                    },
+                    color: '#fff',
+                    font: {
+                        weight: 'bold',
+                    },
                 },
             },
         };
 
-        return <Pie data={data} options={options} />;
+        return <Pie ref={pieChartRef} data={data} options={options} />;
     };
 
     const renderMonthlyVaccinationChart = () => {
         if (!monthlyVaccinationData) return null;
 
         const months = [
-            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
             "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
         ];
 
         const data = {
-            labels: monthlyVaccinationData.map(item => item.month), // Meses
+            labels: monthlyVaccinationData.map(item => months[item.month - 1]), // Meses
             datasets: [
                 {
                     label: 'Número de Vacinações por Mês',
@@ -164,6 +222,8 @@ const Dashboards = () => {
         };
 
         const options = {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 x: {
                     beginAtZero: true,
@@ -185,15 +245,19 @@ const Dashboards = () => {
             },
         };
 
-        return <Bar data={data} options={options} />;
+        return <Bar ref={barChartRef2} data={data} options={options} />;
     };
 
     const handleDiseaseChange = (event) => {
         setSelectedDisease(event.target.value);
     };
 
+    const handleYearChange = (event) => {
+        setSelectedYear(event.target.value);
+    };
+
     return (
-        <Flex flexDirection="column" alignItems="center" width="100%" px="1rem" pb="2rem">
+        <Flex flexDirection="column" alignItems="center" width="100%" px="3rem" pb="2rem">
             <Select
                 value={selectedDisease}
                 onChange={handleDiseaseChange}
@@ -205,7 +269,7 @@ const Dashboards = () => {
                 borderColor="primary.600"
                 bg="white"
                 mt="1rem"
-                px="2rem"
+                px=".3rem"
             >
                 <option value="">
                     Todas as doenças
@@ -220,7 +284,6 @@ const Dashboards = () => {
                 templateColumns={{ base: "1fr", md: "1fr 1fr" }}
                 gap="3rem"
                 width="100%"
-                px="2rem"
             >
                 <Box>
                     <Text
@@ -247,7 +310,6 @@ const Dashboards = () => {
 
                 </Box>
                 <Box>
-
                     <Text
                         fontSize={["md", "xl", "xl", "2xl"]}
                         fontWeight="black"
@@ -270,16 +332,36 @@ const Dashboards = () => {
                         ) : ("Seleciona uma doença")}
                     </Flex>
                 </Box>
-                <Box>
-                    <Text
-                        fontSize={["md", "xl", "xl", "2xl"]}
-                        fontWeight="black"
-                        pb=".5rem"
-                        pt="2rem"
-                        color="secondary.400"
-                    >
-                        Vacinações Mensais
-                    </Text>
+                <Box gridColumn="1 / -1"> {/* Essa linha fará o box ocupar todas as colunas */}
+                    <Flex alignItems="center" pb={"0.5rem"}>
+                        <Text
+                            fontSize={["md", "xl", "xl", "2xl"]}
+                            fontWeight="black"
+                            color="secondary.400"
+                        >
+                            Vacinações Mensais
+                        </Text>
+                        <Select
+                            value={selectedYear}
+                            onChange={handleYearChange}
+                            fontSize="md"
+                            color="secondary.00"
+                            fontWeight="semibold"
+                            maxWidth="200px"
+                            borderColor="primary.600"
+                            bg="white"
+                            px=".3rem"
+                        >
+                            <option value="">
+                                Todas os anos
+                            </option>
+                            {years.map(year => (
+                                <option key={year} value={year}>
+                                    {year}
+                                </option>
+                            ))}
+                        </Select>
+                    </Flex>
                     <Flex
                         backgroundColor="white"
                         borderRadius="lg"

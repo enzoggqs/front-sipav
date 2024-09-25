@@ -37,7 +37,25 @@ const VaccinationAPI = () => {
         }
     };
 
-    const getAllVaccinations = async (userId, vaccineId) => {
+    const getAllVaccinations = async () => {
+        try {
+            const token = localStorage.getItem('@sipavAccessToken');
+
+            if (!token) {
+                throw new Error('Authorization token not found');
+            }
+
+            const response = await api.get('/vaccination');
+
+            return response;
+        } catch (error) {
+            toast.error(error.response.data);
+
+            throw error;
+        }
+    };
+
+    const getAllVaccinationsByVaccine = async (userId, vaccineId) => {
         try {
             const token = localStorage.getItem('@sipavAccessToken');
 
@@ -117,7 +135,7 @@ const VaccinationAPI = () => {
         }
     };
 
-    const getMonthlyVaccinationDistribution = async (diseaseId = null) => {
+    const getMonthlyVaccinationDistribution = async (year = null) => {
         try {
             const token = localStorage.getItem('@sipavAccessToken');
 
@@ -127,9 +145,9 @@ const VaccinationAPI = () => {
 
             var response;
 
-            if(diseaseId){
+            if(year){
                 response = await api.get(`/vaccination/monthly-distribution`, {
-                    params: { diseaseId }
+                    params: { year }
                 });
             } else {
                 response = await api.get(`/vaccination/monthly-distribution`)
@@ -144,6 +162,7 @@ const VaccinationAPI = () => {
 
     return {
         getAllVaccinations,
+        getAllVaccinationsByVaccine,
         createVaccine,
         createVaccination, 
         deleteVaccination, 

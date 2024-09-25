@@ -2,10 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Flex, Text, Spinner, ModalBody, Button, VStack, Tooltip as Tooltip2, HStack, Input, FormLabel, Tag, TagLabel, TagCloseButton, InputGroup, InputLeftElement, Select } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import { GoArrowRight } from 'react-icons/go'
-import { Pie } from 'react-chartjs-2';
-import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import DiseaseAPI from '../../services/DiseaseApi.jsx';
+import DiseaseAPI from '../../services/DiseaseAPI.jsx';
 import CustomBox from '../../components/CustomBox/index.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
@@ -15,13 +12,12 @@ import CustomInput from '../../components/CustomInput/index.jsx';
 import { BiNews } from 'react-icons/bi';
 import VaccinationAPI from '../../services/VaccinationAPI.jsx';
 
-Chart.register(ArcElement, Tooltip, Legend, ChartDataLabels);
-
 const Home = () => {
   const initialRef = useRef();
   const finalRef = useRef();
   const [diseases, setDiseases] = useState([])
   const [isOpenModal, setIsOpenModal] = React.useState(false);
+  const [diseaseAction, setDiseaseAction] = React.useState('Adicionar');
   const [vaccinationData, setVaccinationData] = useState(null);
   const [isOpenAddDiseaseModal, setIsOpenAddDiseaseModal] = useState(false);
   const [isOpenAddVaccineModal, setIsOpenAddVaccineModal] = useState(false);
@@ -31,19 +27,20 @@ const Home = () => {
   const [contraindications, setContraindications] = useState([]);
   const [disabledMonthsBetweenDoses, setDisabledMonthsBetweenDoses] = useState(false);
   const [selectedDiseases, setSelectedDiseases] = useState([]);
+  const [selectedDiseaseId, setSelectedDiseaseId] = useState(null);
 
   const { isAuthenticated } = useAuth();
-  const { getAllDiseases, getDiseaseVaccinationPercentage, createDisease } = DiseaseAPI();
+  const { getAllDiseases, getDiseaseVaccinationPercentage, createDisease, getDiseaseById, editDisease } = DiseaseAPI();
   const { getAllVaccines, createVaccine } = VaccinationAPI();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("@sipavUser"));
 
-  const initialValuesDisease = {
+  const [initialValuesDisease, setInitialValuesDisease] = useState({
     name: '',
     disease_info: '',
     symptoms: [],
     treatment: ''
-  };
+  })
 
   const diseaseValidationSchema = Yup.object({
     name: Yup.string().required("O campo nome é obrigatório."),
@@ -70,6 +67,16 @@ const Home = () => {
       navigate(0);
     } catch (error) {
       console.error('Failed to create disease:', error.message);
+    }
+  };
+
+  async function updateDisease(id, values) {
+    const editedDisease = { ...values, symptoms };
+    try {
+      await editDisease(id, editedDisease);
+      navigate(0);
+    } catch (error) {
+      console.error('Failed to edit disease:', error.message);
     }
   };
 
@@ -105,9 +112,24 @@ const Home = () => {
     )
   }
 
+  const submitDisease = async (data) => {
+    if (diseaseAction === "Adicionar") {
+      await addDisease(data);
+    } else if (diseaseAction === "Editar") {
+      await updateDisease(selectedDiseaseId, data); // Use o selectedDiseaseId aqui
+    }
+  };
+
   const sortedDiseases = diseases?.sort((a, b) => a.name.localeCompare(b.name));
 
   const handleOpenAddDiseaseModal = () => {
+    setDiseaseAction("Adicionar")
+    setInitialValuesDisease({
+      name: '',
+      disease_info: '',
+      symptoms: [],
+      treatment: ''
+    })
     setIsOpenAddDiseaseModal(true);
   };
 
@@ -117,66 +139,33 @@ const Home = () => {
     setSymptoms([]);
   };
 
-  const handleOpenModal = async (diseaseId) => {
-    try {
-      const response = await getDiseaseVaccinationPercentage(diseaseId, user.type);
-      setVaccinationData({...response.data, diseaseName: sortedDiseases.find(disease => disease.id == diseaseId).name});
-      setIsOpenModal(true);
-    } catch (error) {
-      console.error('Erro ao buscar dados de vacinação:', error);
-    }
-  };
-
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
-    setVaccinationData(null);
-  };
-
   const handleDiseaseInfo = (diseaseId) => {
     if (user?.type === "REGULAR") {
       navigate(`/disease/${diseaseId}/user/${user?.id}`)
     } else {
-      handleOpenModal(diseaseId);
+      handleEditDisease(diseaseId);
     }
   }
 
-  const renderChart = () => {
-    if (!vaccinationData) return null;
-    console.log(vaccinationData)
+  const handleEditDisease = async (disease) => {
+    const diseaseData = await getDiseaseById(disease);
 
-    const data = {
-      labels: ['Vacinados', 'Não Vacinados'],
-      datasets: [
-        {
-          data: [vaccinationData.percentage, 100 - vaccinationData.percentage],
-          backgroundColor: ['#135D66', '#CA3433'],
-          hoverBackgroundColor: ['#135D66', '#CA3433'],
-        },
-      ],
-    };
+    setSymptomInput("");
+    const diseaseSymptoms = diseaseData?.data?.symptoms || [];
 
-    const options = {
-      plugins: {
-        legend: {
-          display: true,
-          position: 'top',
-        },
-        tooltip: {
-          enabled: true,
-        },
-        datalabels: {
-          formatter: (value, context) => {
-            return `${value.toFixed(2)}%`;
-          },
-          color: '#fff',
-          font: {
-            weight: 'bold',
-          },
-        },
-      },
-    };
+    setInitialValuesDisease({
+      name: diseaseData?.data?.name,
+      disease_info: diseaseData?.data?.disease_info,
+      symptoms: diseaseSymptoms,
+      treatment: diseaseData?.data?.treatment,
+    });
 
-    return <Pie data={data} options={options} />;
+    setSymptoms(diseaseSymptoms);
+
+    setSelectedDiseaseId(diseaseData?.data?.id);
+
+    setDiseaseAction("Editar");
+    setIsOpenAddDiseaseModal(true);
   };
 
   return (
@@ -206,21 +195,6 @@ const Home = () => {
         >
           {user?.type === "REGULAR" ? 'Minhas Vacinas' : 'Situação de Vacinação dos Usuários'}
         </Text>
-        {/* <Select
-          fontSize="md"
-          color="primary.600"
-          fontWeight="semibold"
-          width="50%"
-          borderColor="primary.600"
-          mt="1rem"
-          onChange={handleUserChange}
-          value={currentUser?.id}
-        >
-          <option value={user?.id}>{user?.name}</option>
-          {user?.dependents?.map((dependent, index) => (
-            <option key={index} value={dependent?.id}>{dependent?.name}</option>
-          ))}
-        </Select> */}
       </Flex>
       <Flex
         height="100%"
@@ -294,36 +268,10 @@ const Home = () => {
           </Button>
         </Flex>
       )}
-      <CustomModal
-        isOpen={isOpenModal}
-        onClose={handleCloseModal}
-        initialRef={initialRef}
-        finalRef={finalRef}
-      >
-        <ModalBody>
-          <Flex
-            width="100%"
-            flexDirection="column"
-            alignItems="center"
-            px="1rem"
-            pb="2rem"
-          >
-            <Text
-              fontSize={["md", "xl", "xl", "2xl"]}
-              fontWeight="black"
-              pb=".5rem"
-              pt="2rem"
-              color="secondary.400"
-            >
-              Porcentagem de usuários vacinados contra {vaccinationData?.diseaseName}
-            </Text>
-            {renderChart()}
-          </Flex>
-        </ModalBody>
-      </CustomModal>
+
       <CustomModal
         isOpen={isOpenAddDiseaseModal}
-        onClose={() => handleCloseAddDiseaseModal()}
+        onClose={handleCloseAddDiseaseModal}
         initialRef={initialRef}
         finalRef={finalRef}
       >
@@ -341,7 +289,7 @@ const Home = () => {
               pt="2rem"
               color="secondary.400"
             >
-              Adicionar Doença
+              {diseaseAction} Doença
             </Text>
             <VStack
               spacing={4}
@@ -354,7 +302,10 @@ const Home = () => {
                 <Formik
                   initialValues={initialValuesDisease}
                   validationSchema={diseaseValidationSchema}
-                  onSubmit={(values) => addDisease(values)}
+                  onSubmit={(values) => {
+                    submitDisease({ ...values, symptoms })
+                    handleCloseAddDiseaseModal(); // Fecha o modal após a ação
+                  }}
                 >
                   {({ handleSubmit, errors, touched, isValid, dirty }) => (
                     <Flex
@@ -512,7 +463,7 @@ const Home = () => {
                           hasArrow
                           isOpen={dirty ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
                         >
-                          Adicionar
+                          {diseaseAction}
                         </Tooltip2>
                       </Button>
                     </Flex>
