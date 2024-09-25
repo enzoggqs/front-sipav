@@ -30,7 +30,7 @@ const Home = () => {
   const [selectedDiseaseId, setSelectedDiseaseId] = useState(null);
 
   const { isAuthenticated } = useAuth();
-  const { getAllDiseases, getDiseaseVaccinationPercentage, createDisease, getDiseaseById, editDisease } = DiseaseAPI();
+  const { getAllDiseases, getDiseaseVaccinationPercentage, createDisease, getDiseaseById, editDisease, deleteDisease } = DiseaseAPI();
   const { getAllVaccines, createVaccine } = VaccinationAPI();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("@sipavUser"));
@@ -168,6 +168,11 @@ const Home = () => {
     setIsOpenAddDiseaseModal(true);
   };
 
+  const handleDeleteDisease = async () => {
+    await deleteDisease(selectedDiseaseId);
+    navigate(0);
+  }
+
   return (
     <Flex
       backgroundColor="#F0F1F3"
@@ -193,7 +198,7 @@ const Home = () => {
           color="primary.600"
           fontWeight="semibold"
         >
-          {user?.type === "REGULAR" ? 'Minhas Vacinas' : 'Situação de Vacinação dos Usuários'}
+          {user?.type === "REGULAR" ? 'Minhas Vacinas' : 'Lista de Doenças'}
         </Text>
       </Flex>
       <Flex
@@ -437,35 +442,56 @@ const Home = () => {
                           data-testid="treatment-input"
                         />
                       </Flex>
-                      <Button
-                        type="submit"
-                        h="3rem"
-                        w="10rem"
-                        borderRadius="30px"
-                        borderColor="primary.600"
-                        borderWidth=".2rem"
-                        color="primary.600"
-                        variant="solid"
-                        marginTop="1rem"
-                        backgroundColor="transparent"
-                        transition="background-color 0.3s, color 0.3s"
-                        _hover={(isValid && dirty) && {
-                          backgroundColor: "primary.600",
-                          color: "#F0F1F3",
-                        }}
-                        isDisabled={!isValid || !dirty}
-                        mb="1rem"
-                        fontSize={["md", "xl", "xl", "xl"]}
-                      >
-                        <Tooltip2
-                          label="Você precisa alterar alguma informação"
-                          placement="top"
-                          hasArrow
-                          isOpen={dirty ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
+                      <Flex gap={2}>
+                        <Button
+                          onClick={handleDeleteDisease}
+                          h="3rem"
+                          w="10rem"
+                          borderRadius="30px"
+                          borderColor="red"
+                          borderWidth=".2rem"
+                          color="red"
+                          variant="solid"
+                          marginTop="1rem"
+                          backgroundColor="transparent"
+                          transition="background-color 0.3s, color 0.3s"
+                          _hover={(isValid && dirty) && {
+                            backgroundColor: "red",
+                            color: "white",
+                          }}
+                          fontSize={["md", "xl", "xl", "xl"]}
                         >
-                          {diseaseAction}
-                        </Tooltip2>
-                      </Button>
+                            Remover
+                        </Button>
+                        <Button
+                          type="submit"
+                          h="3rem"
+                          w="10rem"
+                          borderRadius="30px"
+                          borderColor="primary.600"
+                          borderWidth=".2rem"
+                          color="primary.600"
+                          variant="solid"
+                          marginTop="1rem"
+                          backgroundColor="transparent"
+                          transition="background-color 0.3s, color 0.3s"
+                          _hover={(isValid && dirty) && {
+                            backgroundColor: "primary.600",
+                            color: "#F0F1F3",
+                          }}
+                          isDisabled={!isValid || !dirty}
+                          fontSize={["md", "xl", "xl", "xl"]}
+                        >
+                          <Tooltip2
+                            label="Você precisa alterar alguma informação"
+                            placement="top"
+                            hasArrow
+                            isOpen={dirty ? false : undefined} // Oculta o tooltip se o botão estiver "dirty"
+                          >
+                            {diseaseAction}
+                          </Tooltip2>
+                        </Button>
+                      </Flex>
                     </Flex>
                   )}
                 </Formik>

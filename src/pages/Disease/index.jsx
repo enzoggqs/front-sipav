@@ -30,6 +30,7 @@ const Disease = () => {
   const initialValuesAdd = {
     date: ''
   };
+  
   const validationSchema = Yup.object({
     date: Yup.string()
       .required("O campo data é obrigatório."),

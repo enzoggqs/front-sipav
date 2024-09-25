@@ -179,8 +179,8 @@ const Dashboards = () => {
                 },
                 tooltip: {
                     enabled: true,
-                    titleColor: '#333333', // Cor do título do tooltip
-                    bodyColor: '#333333',  // Cor do corpo do tooltip
+                    titleColor: 'white', // Cor do título do tooltip
+                    bodyColor: 'white',  // Cor do corpo do tooltip
                 },
                 datalabels: {
                     formatter: (value, context) => {
@@ -348,9 +348,10 @@ const Dashboards = () => {
                             borderColor="primary.600"
                             bg="white"
                             px=".3rem"
+                            mx=".3rem"
                         >
                             <option value="">
-                                Todas os anos
+                                Todos os anos
                             </option>
                             {years.map(year => (
                                 <option key={year} value={year}>
