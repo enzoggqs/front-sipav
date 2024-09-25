@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import api from '../Api';
-import DiseaseAPI from '../DiseaseApi.jsx';
+import DiseaseAPI from '../DiseaseAPI.jsx';
 
 // Mocking dependencies
 jest.mock('../Api');

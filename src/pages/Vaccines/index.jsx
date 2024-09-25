@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Flex, Text, Spinner, ModalBody, Button, VStack, Tooltip as Tooltip2, HStack, Input, FormLabel, Tag, TagLabel, TagCloseButton, InputGroup, InputLeftElement, Select, Box, UnorderedList, ListItem } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import { GoArrowRight } from 'react-icons/go'
-import DiseaseAPI from '../../services/DiseaseApi.jsx';
+import DiseaseAPI from '../../services/DiseaseAPI.jsx';
 import CustomBox from '../../components/CustomBox/index.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
