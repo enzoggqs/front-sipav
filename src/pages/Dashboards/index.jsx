@@ -2,12 +2,12 @@ import { Flex, Text, Select, Spinner, SimpleGrid, Grid, Box } from '@chakra-ui/r
 import React, { useEffect, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
-import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import VaccinationAPI from '../../services/VaccinationAPI';
 import DiseaseAPI from '../../services/DiseaseAPI';
 
 // Registro das escalas e elementos que o gráfico vai usar
-Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
 const Dashboards = () => {
     const [vaccinationAgeDistributionData, setVaccinationAgeDistributionData] = useState(null);
@@ -96,9 +96,6 @@ const Dashboards = () => {
                     const response = await getDiseaseVaccinationPercentage(diseaseId, user.type);
                     setVaccinationData({ ...response.data, diseaseName: sortedDiseases.find(disease => disease.id == diseaseId).name });
                 }
-                const responseMonths = await getMonthlyVaccinationDistribution();
-                console.log(responseMonths)
-                // setMonthlyVaccinationData(responseMonths)
                 setVaccinationAgeDistributionData(data);
             } catch (error) {
                 console.error("Erro ao buscar dados de vacinação:", error);
